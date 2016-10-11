@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">FertilizerForLatex</string>
+    <string name="main_title">โปรแกรมคำนวนการให้ปุ๋ยยางพารา</string>
+    <string name="start_label">เริ่มใช้งานโปรแกรม</string>
+    <string name="continue_label">เข้าใช้งานอีกครั้ง</string>
+    <string name="about_label">เกี่ยวกับการใช้งานโปรแกรม</string>
+    <string name="exit_label">ออกการโปรแกรม</string>
+    <string name="about_title">คำแนะนำการใช้(Instruction)</string>
+    <string name="about_text">\<b>คำแนะนำ</b> โปรแกรมนี้จัดทำขึ้นเพื่อให้คำแนะนำแก่เกษตรกรรุ่นใหม่หรือผู้ที่สนใจ
+    ซึ่งจะช่วยในการคำนวณการให้ปุ๋ยยางพารา อย่างถูกต้องและเหมาะสมตามที่ทางการยางแห่งประเทศไทยได้แนะนำมา</string>
+    //กำหนดค่าให้layout start
+    <string name="start_title">กรุณากรอกข้อมูลค่ะ </string>
+    <string name="area_label">พื้นที่</string>
+    <string name="tree_label">จำนวนต้น</string>
+    <string name="age_label">อายุของต้นยาง</string>
+    <string name="date_label">วันที่ใส่ปุ๋ย</string>
+    <string name="enter_label">ยืนยัน</string>
+
+
+</resources>
