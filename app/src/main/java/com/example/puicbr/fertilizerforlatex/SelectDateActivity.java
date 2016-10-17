@@ -6,8 +6,8 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
-import com.example.fertilizer.helper.DbHelper;
-import com.example.fertilizer.model.User_Entry;
+import com.example.puicbr.fertilizerforlatex.helper.DbHelper;
+import com.example.puicbr.fertilizerforlatex.model.User_Entry;
 import com.google.gson.Gson;
 
 public class SelectDateActivity extends AppCompatActivity {

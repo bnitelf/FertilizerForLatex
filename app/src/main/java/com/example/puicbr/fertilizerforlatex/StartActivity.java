@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.fertilizer.model.User_Entry;
+import com.example.puicbr.fertilizerforlatex.model.User_Entry;
 import com.google.gson.Gson;
 
 public class StartActivity extends Activity implements View.OnClickListener {
