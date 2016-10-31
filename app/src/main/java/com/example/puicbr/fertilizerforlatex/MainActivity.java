@@ -19,6 +19,8 @@ public class MainActivity extends AppCompatActivity
         btnAbout.setOnClickListener(this);
         Button btnStart = (Button) findViewById(R.id.start_button);
         btnStart.setOnClickListener(this);
+        Button btnExit = (Button) findViewById(R.id.exit_button);
+        btnExit.setOnClickListener(this);
     }
 
     public void onClick(View v) {
@@ -31,6 +33,13 @@ public class MainActivity extends AppCompatActivity
             case R.id.start_button:
                 Intent s = new Intent(MainActivity.this,StartActivity.class);
                 startActivity(s);
+                break;
+
+            case R.id.exit_button:
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
                 break;
         }
     }
