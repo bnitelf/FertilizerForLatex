@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.puicbr.fertilizerforlatex.model.Formula;
-import com.example.puicbr.fertilizerforlatex.model.User_Entry;
+import com.example.puicbr.fertilizerforlatex.model.UserEntry;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -79,7 +79,7 @@ public class DbHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void createUserEntry(User_Entry user_entry){
+    public void createUserEntry(UserEntry user_entry){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -93,7 +93,7 @@ public class DbHelper extends SQLiteOpenHelper {
         db.close(); // Closing database connection
     }
 
-    public void updateUserEntry(User_Entry user_entry){
+    public void updateUserEntry(UserEntry user_entry){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -108,15 +108,15 @@ public class DbHelper extends SQLiteOpenHelper {
         db.close(); // Closing database connection
     }
 
-    public void deleteContact(User_Entry user_entry) {
+    public void deleteContact(UserEntry user_entry) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_NAME_USER_ENTRY, COL_ID + " = ?",
                 new String[] { String.valueOf(user_entry.id) });
         db.close();
     }
 
-    public List<User_Entry> selectAllUserEntry(){
-        List<User_Entry> user_entryList = new ArrayList<>();
+    public List<UserEntry> selectAllUserEntry(){
+        List<UserEntry> user_entryList = new ArrayList<>();
 
         SQLiteDatabase db = this.getReadableDatabase();
         String sql = "select * from " + TABLE_NAME_USER_ENTRY;
@@ -124,7 +124,7 @@ public class DbHelper extends SQLiteOpenHelper {
         Cursor c =  db.rawQuery(sql, null );
         if(c.moveToFirst()){
             do{
-                User_Entry ue = new User_Entry();
+                UserEntry ue = new UserEntry();
                 ue.id = c.getInt(c.getColumnIndex(COL_ID));
                 ue.rai = c.getInt(c.getColumnIndex(COL_RAI));
                 ue.tree_age = c.getInt(c.getColumnIndex(COL_TREE_AGE));
@@ -138,10 +138,10 @@ public class DbHelper extends SQLiteOpenHelper {
         return user_entryList;
     }
 
-    public User_Entry selectUserEntryById(int id){
-        User_Entry user_entry = null;
-        List<User_Entry> user_entryList = selectAllUserEntry();
-        for(User_Entry item : user_entryList){
+    public UserEntry selectUserEntryById(int id){
+        UserEntry user_entry = null;
+        List<UserEntry> user_entryList = selectAllUserEntry();
+        for(UserEntry item : user_entryList){
             if(item.id == id){
                 user_entry = item;
             }

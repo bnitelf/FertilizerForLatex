@@ -8,7 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.puicbr.fertilizerforlatex.model.User_Entry;
+import com.example.puicbr.fertilizerforlatex.Global.ViewInfo;
+import com.example.puicbr.fertilizerforlatex.model.UserEntry;
 import com.google.gson.Gson;
 
 public class StartActivity extends Activity implements View.OnClickListener {
@@ -43,16 +44,21 @@ public class StartActivity extends Activity implements View.OnClickListener {
         int age = Integer.parseInt(edtAge.getText().toString());
         int count = Integer.parseInt(edtCount.getText().toString());
 
-        User_Entry user_entry = new User_Entry();
-        user_entry.rai = area;
-        user_entry.tree_age = age;
-        user_entry.tree_amt = count;
+        if(ViewInfo.viUserEntry == null)
+        {
+            ViewInfo.viUserEntry = new UserEntry();
+        }
 
-        Gson gson = new Gson();
-        String json = gson.toJson(user_entry);
+        ViewInfo.viUserEntry.rai = area;
+        ViewInfo.viUserEntry.tree_age = age;
+        ViewInfo.viUserEntry.tree_amt = count;
+
+
+//        Gson gson = new Gson();
+//        String json = gson.toJson(user_entry);
 
         Intent a = new Intent(this, SelectDateActivity.class);
-        a.putExtra("user_entry", json);
+//        a.putExtra("user_entry", json);
         startActivity(a);
     }
 }
