@@ -1,18 +1,17 @@
 package com.example.puicbr.fertilizerforlatex;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
-import android.widget.Toast;
+import android.app.Dialog;
 
 import com.example.puicbr.fertilizerforlatex.Global.ViewInfo;
 import com.example.puicbr.fertilizerforlatex.helper.DbHelper;
 import com.example.puicbr.fertilizerforlatex.model.UserEntry;
-import com.google.gson.Gson;
 
-public class SelectDateActivity extends AppCompatActivity {
+public class SelectDateActivity extends Activity {
 
     private DatePicker datePicker = null;
     private UserEntry user_entry = null;
@@ -42,6 +41,8 @@ public class SelectDateActivity extends AppCompatActivity {
 //        db.createUserEntry(user_entry);
         Log.d(DEBUG_TAG, ViewInfo.viUserEntry.toString());
 
-        Toast.makeText(this, "บันทึกข้อมูลเรียบร้อย", Toast.LENGTH_LONG);
+
+        Dialog dialog= MyDialogBuilder.CreateDialog(this, "บันทึกข้อมูลเรียบร้อย");
+        dialog.show();
     }
 }
