@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">FertilizerForLatex</string>
     <string name="main_title">โปรแกรมคำนวนการให้ปุ๋ยยางพารา</string>
-    <string name="start_label">เริ่มใช้งานโปรแกรม</string>
+    <string name="start_label">บันทึกการใส่ปุ๋ย</string>
     <string name="continue_label">เข้าใช้งานอีกครั้ง</string>
+    <string name="history_label">ประวัติการใส่ปุ๋ยที่ผ่านมา</string>
     <string name="about_label">เกี่ยวกับการใช้งานโปรแกรม</string>
     <string name="exit_label">ออกการโปรแกรม</string>
     <string name="about_title">คำแนะนำการใช้(Instruction)</string>
@@ -15,6 +16,12 @@
     <string name="age_label">อายุของต้นยาง</string>
     <string name="date_label">วันที่ใส่ปุ๋ย</string>
     <string name="enter_label">ยืนยัน</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 
 
 </resources>
