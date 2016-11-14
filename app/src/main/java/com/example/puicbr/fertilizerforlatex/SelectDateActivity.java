@@ -9,12 +9,12 @@ import android.app.Dialog;
 
 import com.example.puicbr.fertilizerforlatex.Global.ViewInfo;
 import com.example.puicbr.fertilizerforlatex.helper.DbHelper;
-import com.example.puicbr.fertilizerforlatex.model.UserEntry;
+import com.example.puicbr.fertilizerforlatex.model.Task;
 
 public class SelectDateActivity extends Activity {
 
     private DatePicker datePicker = null;
-    private UserEntry user_entry = null;
+    private Task user_entry = null;
     private DbHelper db = null;
 
     private static final String DEBUG_TAG = "SelectDateActivity";
@@ -28,7 +28,7 @@ public class SelectDateActivity extends Activity {
 
 //        Gson gson = new Gson();
 //        String json = savedInstanceState.getString("user_entry");
-//        user_entry = gson.fromJson(json, UserEntry.class);
+//        user_entry = gson.fromJson(json, Task.class);
 
         db = new DbHelper(this);
     }
@@ -36,10 +36,10 @@ public class SelectDateActivity extends Activity {
     public void onClick(View v) {
         String dateStr = String.format("%d-%d-%d", datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth());
 
-        ViewInfo.viUserEntry.date = dateStr;
+//        ViewInfo.viTask.create_date = dateStr;
 
-//        db.createUserEntry(user_entry);
-        Log.d(DEBUG_TAG, ViewInfo.viUserEntry.toString());
+//        db.createTask(user_entry);
+        Log.d(DEBUG_TAG, ViewInfo.viTask.toString());
 
 
         Dialog dialog= MyDialogBuilder.CreateDialog(this, "บันทึกข้อมูลเรียบร้อย");

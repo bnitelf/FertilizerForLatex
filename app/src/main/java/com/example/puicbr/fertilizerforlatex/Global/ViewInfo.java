@@ -1,6 +1,6 @@
 package com.example.puicbr.fertilizerforlatex.Global;
 
-import com.example.puicbr.fertilizerforlatex.model.UserEntry;
+import com.example.puicbr.fertilizerforlatex.model.Task;
 
 /**
  * Created by nplayground on 10/18/16.
@@ -8,5 +8,5 @@ import com.example.puicbr.fertilizerforlatex.model.UserEntry;
 
 public class ViewInfo {
 
-    public static UserEntry viUserEntry = null;
+    public static Task viTask = null;
 }

@@ -1,5 +1,8 @@
 package com.example.puicbr.fertilizerforlatex;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,8 +16,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.puicbr.fertilizerforlatex.Fragment.DeletedTasksFragment;
+import com.example.puicbr.fertilizerforlatex.Fragment.FertilizingCalculatorFragment;
+import com.example.puicbr.fertilizerforlatex.Fragment.ReportFragment;
+import com.example.puicbr.fertilizerforlatex.Fragment.TasksFragment;
+import com.example.puicbr.fertilizerforlatex.Fragment.UpComingTasksFragment;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private NavigationView navigationView = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +38,8 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent a = new Intent(MainActivity.this, StartActivity.class);
+                startActivity(a);
             }
         });
 
@@ -38,8 +49,13 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        // Set Tasks fragment as Home
+        Fragment tasksFragment = TasksFragment.newInstance("param1", "param2");
+        setMainContentFragment("Tasks", tasksFragment);
+        navigationView.setCheckedItem(R.id.nav_tasks);
     }
 
     @Override
@@ -67,7 +83,11 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_about) {
+
+            Intent a = new Intent(MainActivity.this, AboutActivity.class);
+            startActivity(a);
+
             return true;
         }
 
@@ -80,22 +100,52 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        Fragment fragment = null;
+
         if (id == R.id.nav_tasks) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
 
-        } else if (id == R.id.nav_slideshow) {
+            fragment = TasksFragment.newInstance("param1", "param2");
+            setMainContentFragment("Tasks", fragment);
+            navigationView.setCheckedItem(R.id.nav_tasks);
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_upcoming_tasks) {
 
-        } else if (id == R.id.nav_share) {
+            fragment = UpComingTasksFragment.newInstance("param1", "param2");
+            setMainContentFragment("Upcoming Tasks", fragment);
+            navigationView.setCheckedItem(R.id.nav_upcoming_tasks);
+
+        } else if (id == R.id.nav_deleted_tasks) {
+
+            fragment = DeletedTasksFragment.newInstance("param1", "param2");
+            setMainContentFragment("Deleted Tasks", fragment);
+            navigationView.setCheckedItem(R.id.nav_deleted_tasks);
+
+        } else if (id == R.id.nav_fertilizing_calculator) {
+
+            fragment = FertilizingCalculatorFragment.newInstance("param1", "param2");
+            setMainContentFragment("Fertilizing Calculator", fragment);
+            navigationView.setCheckedItem(R.id.nav_fertilizing_calculator);
+
+        } else if (id == R.id.nav_report) {
+
+            fragment = ReportFragment.newInstance("param1", "param2");
+            setMainContentFragment("Report", fragment);
+            navigationView.setCheckedItem(R.id.nav_report);
 
         } else if (id == R.id.nav_send) {
+
+
 
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void setMainContentFragment(String title, Fragment fragment){
+        getSupportActionBar().setTitle(title);
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.content_main, fragment).commit();
     }
 }

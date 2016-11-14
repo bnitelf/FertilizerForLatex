@@ -6,12 +6,17 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.puicbr.fertilizerforlatex.model.Constants.TaskState;
+import com.example.puicbr.fertilizerforlatex.model.Fertilizing_Round;
 import com.example.puicbr.fertilizerforlatex.model.Formula;
-import com.example.puicbr.fertilizerforlatex.model.UserEntry;
+import com.example.puicbr.fertilizerforlatex.model.Task;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,38 +26,57 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "Fertilizer";
     private static final int DB_VERSION = 1;
 
-    public static final String TABLE_NAME_USER_ENTRY = "user_entry";
+    public static final String TABLE_NAME_TASK = "task";
     public static final String COL_ID = "id";
+    public static final String COL_NAME = "name";
     public static final String COL_RAI = "rai";
     public static final String COL_TREE_AGE = "tree_age";
     public static final String COL_TREE_AMT = "tree_amt";
-    public static final String COL_DATE = "date";
+    public static final String COL_CREATE_DATE = "create_date";
+    public static final String COL_STATE = "state";
 
     public static final String TABLE_NAME_FORMULA = "formula";
     public static final String COL_USE_PER_TREE = "use_per_tree";
     public static final String COL_AREA_USED = "area_used";
 
+    public static final String TABLE_NAME_FERTILIZING_ROUND = "fertilizing_round";
+    public static final String COL_TASK_ID = "task_id";
+    public static final String COL_ROUND = "round";
+    public static final String COL_DATE = "create_date";
+
     // Create Table syntax
-    private static final String CREATE_TABLE_USER_ENTRY =
-            "CREATE TABLE " + TABLE_NAME_USER_ENTRY + " ("
+    private static final String CREATE_TABLE_TASK =
+            "CREATE TABLE " + TABLE_NAME_TASK + " ("
                     + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                    + COL_NAME + " TEXT, "
                     + COL_RAI + " INTEGER, "
                     + COL_TREE_AGE + " INTEGER, "
                     + COL_TREE_AMT + " INTEGER, "
-                    + COL_DATE + " DATATIME  );";
+                    + COL_CREATE_DATE + " DATETIME, "
+                    + COL_STATE + " TEXT );";
+
+    private static final String CREATE_TABLE_FERTILIZING_ROUND =
+            "CREATE TABLE " + TABLE_NAME_FERTILIZING_ROUND + " ("
+                    + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                    + COL_TASK_ID + " INTEGER , "
+                    + COL_ROUND + " INTEGER, "
+                    + COL_TREE_AGE + " INTEGER, "
+                    + COL_DATE + " DATETIME );";
+
 
     private static final String CREATE_TABLE_FORMULA =
             "CREATE TABLE " + TABLE_NAME_FORMULA + " ("
                     + COL_TREE_AGE + " INTEGER PRIMARY KEY , "
                     + COL_USE_PER_TREE + " INTEGER, "
-                    + COL_AREA_USED + " TEXT);";
+                    + COL_AREA_USED + " TEXT );";
 
     public DbHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
 
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(CREATE_TABLE_USER_ENTRY);
+        db.execSQL(CREATE_TABLE_TASK);
+        db.execSQL(CREATE_TABLE_FERTILIZING_ROUND);
         db.execSQL(CREATE_TABLE_FORMULA);
         db.execSQL(String.format("INSERT INTO %s VALUES (%d,%d,'%s');", TABLE_NAME_FORMULA, 1, 50, "ใส่รอบต้นรัศมี 30 cm"));
         db.execSQL(String.format("INSERT INTO %s VALUES (%d,%d,'%s');", TABLE_NAME_FORMULA, 6, 70, "ใส่รอบต้นรัศมี 40 cm"));
@@ -73,75 +97,111 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_USER_ENTRY);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_TASK);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_FERTILIZING_ROUND);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_FORMULA);
 
         onCreate(db);
     }
 
-    public void createUserEntry(UserEntry user_entry){
+    public void createTask(Task user_entry){
         SQLiteDatabase db = this.getWritableDatabase();
 
+        SimpleDateFormat dateFormat = new SimpleDateFormat ("yyyy-MM-dd");
+
         ContentValues values = new ContentValues();
+        values.put(COL_NAME, user_entry.name);
         values.put(COL_RAI, user_entry.rai);
         values.put(COL_TREE_AGE, user_entry.tree_age);
         values.put(COL_TREE_AMT, user_entry.tree_amt);
-        values.put(COL_DATE, user_entry.date);
+        values.put(COL_CREATE_DATE, dateFormat.format(user_entry.create_date));
+        values.put(COL_STATE, user_entry.taskState.toString());
 
         // Inserting Row
-        db.insert(TABLE_NAME_USER_ENTRY, null, values);
+        db.insert(TABLE_NAME_TASK, null, values);
         db.close(); // Closing database connection
     }
 
-    public void updateUserEntry(UserEntry user_entry){
+    public void updateTask(Task user_entry){
         SQLiteDatabase db = this.getWritableDatabase();
 
+        SimpleDateFormat dateFormat = new SimpleDateFormat ("yyyy-MM-dd");
+
         ContentValues values = new ContentValues();
+        values.put(COL_NAME, user_entry.name);
         values.put(COL_RAI, user_entry.rai);
         values.put(COL_TREE_AGE, user_entry.tree_age);
         values.put(COL_TREE_AMT, user_entry.tree_amt);
-        values.put(COL_DATE, user_entry.date);
+        values.put(COL_CREATE_DATE, dateFormat.format(user_entry.create_date));
+        values.put(COL_STATE, user_entry.taskState.toString());
 
         // Inserting Row
-        db.update(TABLE_NAME_USER_ENTRY, values, COL_ID + " = ?",
-                new String[] { String.valueOf(user_entry.id) });
+        db.update(TABLE_NAME_TASK, values, COL_ID + " = ?",
+                new String[]{String.valueOf(user_entry.id)});
         db.close(); // Closing database connection
     }
 
-    public void deleteContact(UserEntry user_entry) {
+    public void deleteTask(Task user_entry) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_NAME_USER_ENTRY, COL_ID + " = ?",
-                new String[] { String.valueOf(user_entry.id) });
+        db.delete(TABLE_NAME_TASK, COL_ID + " = ?",
+                new String[]{String.valueOf(user_entry.id)});
         db.close();
     }
 
-    public List<UserEntry> selectAllUserEntry(){
-        List<UserEntry> user_entryList = new ArrayList<>();
+    public void markTaskAsDelete(Task task){
+        task.taskState = TaskState.delete;
+        updateTask(task);
+    }
+
+    public List<Task> selectAllTasks(){
+        List<Task> taskList = new ArrayList<>();
 
         SQLiteDatabase db = this.getReadableDatabase();
-        String sql = "select * from " + TABLE_NAME_USER_ENTRY;
+        String sql = "select * from " + TABLE_NAME_TASK;
+
+        String create_date;
+        String taskState;
 
         Cursor c =  db.rawQuery(sql, null );
         if(c.moveToFirst()){
             do{
-                UserEntry ue = new UserEntry();
-                ue.id = c.getInt(c.getColumnIndex(COL_ID));
-                ue.rai = c.getInt(c.getColumnIndex(COL_RAI));
-                ue.tree_age = c.getInt(c.getColumnIndex(COL_TREE_AGE));
-                ue.tree_amt = c.getInt(c.getColumnIndex(COL_TREE_AMT));
-                ue.date = c.getString(c.getColumnIndex(COL_DATE));
+                Task task = new Task();
+                task.id = c.getInt(c.getColumnIndex(COL_ID));
+                task.name = c.getString(c.getColumnIndex(COL_NAME));
+                task.rai = c.getInt(c.getColumnIndex(COL_RAI));
+                task.tree_age = c.getInt(c.getColumnIndex(COL_TREE_AGE));
+                task.tree_amt = c.getInt(c.getColumnIndex(COL_TREE_AMT));
 
-                user_entryList.add(ue);
+                create_date = c.getString(c.getColumnIndex(COL_CREATE_DATE));
+                task.create_date = dateStringToDate(create_date);
+
+                taskState = c.getString(c.getColumnIndex(COL_STATE));
+                task.taskState = TaskState.valueOf(taskState);
+
+                taskList.add(task);
             }while(c.moveToNext());
         }
 
-        return user_entryList;
+        return taskList;
     }
 
-    public UserEntry selectUserEntryById(int id){
-        UserEntry user_entry = null;
-        List<UserEntry> user_entryList = selectAllUserEntry();
-        for(UserEntry item : user_entryList){
+    private Date dateStringToDate(String date){
+        Date dateOut = null;
+        SimpleDateFormat dateFormat = new SimpleDateFormat ("yyyy-MM-dd");
+
+        try {
+            dateOut = dateFormat.parse(date);
+            return dateOut;
+        }catch (ParseException e) {
+            System.out.println("Unparseable using " + dateFormat);
+            return null;
+        }
+    }
+
+    public Task selectTaskById(int id){
+        Task user_entry = null;
+        List<Task> user_entryList = selectAllTasks();
+        for(Task item : user_entryList){
             if(item.id == id){
                 user_entry = item;
             }
@@ -199,4 +259,70 @@ public class DbHelper extends SQLiteOpenHelper {
         return null;
     }
 
+    public void createFertilizing_Round(Fertilizing_Round fertilizingRound){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat ("yyyy-MM-dd");
+
+        ContentValues values = new ContentValues();
+        values.put(COL_TASK_ID, fertilizingRound.task_id);
+        values.put(COL_ROUND, fertilizingRound.round);
+        values.put(COL_TREE_AGE, fertilizingRound.tree_age);
+        values.put(COL_DATE, dateFormat.format(fertilizingRound.date));
+
+        // Inserting Row
+        db.insert(TABLE_NAME_FERTILIZING_ROUND, null, values);
+        db.close(); // Closing database connection
+    }
+
+    public void updateFertilizing_Round(Fertilizing_Round fertilizingRound){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat ("yyyy-MM-dd");
+
+        ContentValues values = new ContentValues();
+        values.put(COL_TASK_ID, fertilizingRound.task_id);
+        values.put(COL_ROUND, fertilizingRound.round);
+        values.put(COL_TREE_AGE, fertilizingRound.tree_age);
+        values.put(COL_DATE, dateFormat.format(fertilizingRound.date));
+
+        // Inserting Row
+        db.update(TABLE_NAME_FERTILIZING_ROUND, values, COL_ID + " = ?",
+                new String[]{String.valueOf(fertilizingRound.id)});
+        db.close(); // Closing database connection
+    }
+
+    public void deleteFertilizing_Round(Fertilizing_Round fertilizingRound) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME_FERTILIZING_ROUND, COL_ID + " = ?",
+                new String[]{String.valueOf(fertilizingRound.id)});
+        db.close();
+    }
+
+    public List<Fertilizing_Round> SelectFertilizing_RoundByTaskId(int id){
+        List<Fertilizing_Round> fertilizingRoundList = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sql = String.format("select * from %s where task_id = %d", TABLE_NAME_FERTILIZING_ROUND, id);
+
+        String dateStr;
+
+        Cursor c =  db.rawQuery(sql, null );
+        if(c.moveToFirst()){
+            do{
+                Fertilizing_Round task = new Fertilizing_Round();
+                task.id = c.getInt(c.getColumnIndex(COL_ID));
+                task.task_id = c.getInt(c.getColumnIndex(COL_TASK_ID));
+                task.round = c.getInt(c.getColumnIndex(COL_ROUND));
+                task.tree_age = c.getInt(c.getColumnIndex(COL_TREE_AGE));
+
+                dateStr = c.getString(c.getColumnIndex(COL_DATE));
+                task.date = dateStringToDate(dateStr);
+
+                fertilizingRoundList.add(task);
+            }while(c.moveToNext());
+        }
+
+        return fertilizingRoundList;
+    }
 }

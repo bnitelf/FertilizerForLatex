@@ -7,30 +7,30 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="Tasks" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_upcoming_tasks"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:title="Upcoming Tasks" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_deleted_tasks"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:title="Deleted Tasks" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_fertilizing_calculator"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="Fertilizing Calculator" />
+
+        <item
+            android:id="@+id/nav_report"
+            android:icon="@drawable/ic_menu_share"
+            android:title="Report" />
+        <item
+            android:id="@+id/nav_send"
+            android:icon="@drawable/ic_menu_send"
+            android:title="Send" />
+
+
     </group>
 
-    <item android:title="Report">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
-        </menu>
-    </item>
+
 
 </menu>
