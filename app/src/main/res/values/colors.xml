@@ -6,4 +6,9 @@
     <color name="colorAccent">#E87303</color>
     <color name="navDrawerbackground">@color/colorPrimaryDark</color>
     <color name="black_overlay">#66000000</color>
+
+    <color name="taskStatusActive">#0ba4e7</color>
+    <color name="taskStatusAchieve">#0db10a</color>
+    <color name="taskStatusCancel">#ec2626</color>
+    <color name="taskStatusDelete">#868686</color>
 </resources>
