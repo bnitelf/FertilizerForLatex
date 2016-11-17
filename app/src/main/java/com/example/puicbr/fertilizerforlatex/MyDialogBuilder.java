@@ -13,25 +13,38 @@ import android.os.Bundle;
 
 public class MyDialogBuilder {
 
-    public static Dialog CreateDialog(Context context, String title, String message) {
+    public static Dialog CreateDialog(Context context, String title, String message, DialogInterface.OnClickListener onClickListener) {
 
         String ok = context.getResources().getString(android.R.string.ok);
 
         AlertDialog alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.setTitle(title);
         alertDialog.setMessage(message);
-        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, ok,
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
+
+        if(onClickListener == null){
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, ok,
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+        }else{
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, ok, onClickListener);
+        }
 
         return alertDialog;
     }
 
     public static Dialog CreateDialog(Context context, String message) {
-        return CreateDialog(context, "Information", message);
+        return CreateDialog(context, "Information", message, null);
+    }
+
+    public static Dialog CreateDialog(Context context, String message, DialogInterface.OnClickListener onClickListener) {
+        return CreateDialog(context, "Information", message, onClickListener);
+    }
+
+    public static Dialog CreateDialog(Context context, String title, String message){
+        return CreateDialog(context, title, message, null);
     }
 
     public static Dialog CreateConfirmDialog(Context context, String message, DialogInterface.OnClickListener onClickListener) {
