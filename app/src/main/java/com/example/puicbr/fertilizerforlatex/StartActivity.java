@@ -114,6 +114,8 @@ public class StartActivity extends AppCompatActivity {
                 // ให้ add รอบการให้ปุ๋ยทั้งหมดลงไปในตาราง เช่นถ้ามีรอบการให้ปุ๋ยถัดไปอีก 6 รอบ ให้ add 6 records
                 // วิธีการดู ฐานข้อมูล android ลองหาใน google ดู
 
+
+
                 Dialog dialog = MyDialogBuilder.CreateDialog(this, "Add Successful", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
