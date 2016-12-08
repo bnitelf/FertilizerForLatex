@@ -19,10 +19,14 @@ import android.widget.Toast;
 
 import com.example.puicbr.fertilizerforlatex.Global.ViewInfo;
 import com.example.puicbr.fertilizerforlatex.helper.DbHelper;
+import com.example.puicbr.fertilizerforlatex.helper.FertilizingRoundHelper;
 import com.example.puicbr.fertilizerforlatex.model.Constants.TaskState;
+import com.example.puicbr.fertilizerforlatex.model.Fertilizing_Round;
+import com.example.puicbr.fertilizerforlatex.model.Formula;
 import com.example.puicbr.fertilizerforlatex.model.Task;
 
 import java.util.Date;
+import java.util.List;
 
 public class StartActivity extends AppCompatActivity {
 
@@ -110,10 +114,15 @@ public class StartActivity extends AppCompatActivity {
 
                 dbHelper.createTask(task);
 
-                // TODO: ทำต่อตรงนี้ ที่ตรงทำคือต้อง add ข้อมูลลงตาราง Fertilizing_Round (ตารางรอบการให้ปุ๋ย)
-                // ให้ add รอบการให้ปุ๋ยทั้งหมดลงไปในตาราง เช่นถ้ามีรอบการให้ปุ๋ยถัดไปอีก 6 รอบ ให้ add 6 records
-                // วิธีการดู ฐานข้อมูล android ลองหาใน google ดู
+                Task newTask = dbHelper.selectLastTask();
 
+                // add ข้อมูลลงตาราง Fertilizing_Round (ตารางรอบการให้ปุ๋ย)
+                List<Formula> formulaList = dbHelper.selectAllFormula();
+                List<Fertilizing_Round> fertilizingRoundList = FertilizingRoundHelper.generateFertilizingRoundList(newTask, formulaList);
+
+                for (Fertilizing_Round fRound : fertilizingRoundList){
+                    dbHelper.createFertilizing_Round(fRound);
+                }
 
 
                 Dialog dialog = MyDialogBuilder.CreateDialog(this, "Add Successful", new DialogInterface.OnClickListener() {

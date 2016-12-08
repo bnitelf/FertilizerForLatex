@@ -138,17 +138,17 @@
                     android:gravity="bottom"
                     android:text="ต้น" />
             </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="32dp"
-                android:paddingBottom="16dp"
-                android:text="เลือกวันที่ต้องการเริ่มใส่ปุ๋ย"/>
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:paddingTop="32dp"-->
+                <!--android:paddingBottom="16dp"-->
+                <!--android:text="เลือกวันที่ต้องการเริ่มใส่ปุ๋ย"/>-->
 
-            <DatePicker
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/datePicker" />
+            <!--<DatePicker-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/datePicker" />-->
 
 
         </LinearLayout>

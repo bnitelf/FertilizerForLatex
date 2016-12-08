@@ -85,7 +85,36 @@ public class DateHelper {
         return next;
     }
 
+    public static Date GetNextFertilizingDate(Task task, List<Formula> formulaList, int currentTreeAge){
+        Date next = null;
 
+        Calendar calendarNext = Calendar.getInstance();
+
+        int nextFertilizingTreeAge = -1;
+
+        for(Formula f : formulaList){
+            if(f.tree_age > currentTreeAge){
+                nextFertilizingTreeAge = f.tree_age;
+            }
+        }
+
+        if(nextFertilizingTreeAge != -1){
+            int treeAgeDiff = nextFertilizingTreeAge - currentTreeAge;
+
+            calendarNext.add(Calendar.MONTH, treeAgeDiff);
+
+            next = calendarNext.getTime();
+        }
+
+        return next;
+    }
+
+
+    public static Calendar toCalendar(Date date){
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        return cal;
+    }
 
     /**
      * เช็คว่าเป็นปีอธิกสุรทินหรือไม่

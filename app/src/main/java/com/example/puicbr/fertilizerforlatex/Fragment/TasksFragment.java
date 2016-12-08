@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.puicbr.fertilizerforlatex.Adapter.TasksAdapter;
 import com.example.puicbr.fertilizerforlatex.R;
 import com.example.puicbr.fertilizerforlatex.helper.DbHelper;
 import com.example.puicbr.fertilizerforlatex.model.Task;
@@ -66,20 +67,45 @@ public class TasksFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+    }
 
-        tvNoTasksFound = (TextView) getView().findViewById(R.id.tv_no_tasks_found);
-        lvTasks = (ListView) getView().findViewById(R.id.lv_tasks);
+    @Override
+    public void onResume() {
+        super.onResume();
 
-        dbHelper = new DbHelper(getActivity());
+        loadData();
 
+        if(taskList.size() > 0){
+            tvNoTasksFound.setVisibility(View.INVISIBLE);
+        }
 
+        TasksAdapter tasksAdapter = new TasksAdapter(getActivity(), taskList);
+
+        lvTasks.setAdapter(tasksAdapter);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tasks, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_tasks, container, false);
+
+        tvNoTasksFound = (TextView) rootView.findViewById(R.id.tv_no_tasks_found);
+        lvTasks = (ListView) rootView.findViewById(R.id.lv_tasks);
+
+        dbHelper = new DbHelper(getActivity());
+
+        loadData();
+
+        if(taskList.size() > 0){
+            tvNoTasksFound.setVisibility(View.INVISIBLE);
+        }
+
+        TasksAdapter tasksAdapter = new TasksAdapter(getActivity(), taskList);
+
+        lvTasks.setAdapter(tasksAdapter);
+
+        return rootView;
     }
 
     private void loadData(){

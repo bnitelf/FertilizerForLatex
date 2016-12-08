@@ -209,6 +209,16 @@ public class DbHelper extends SQLiteOpenHelper {
         return user_entry;
     }
 
+    public Task selectLastTask(){
+        List<Task> taskList = selectAllTasks();
+        Task lastTask = null;
+        for(Task item : taskList){
+            lastTask = item;
+        }
+
+        return lastTask;
+    }
+
     public List<Formula> selectAllFormula(){
         List<Formula> formulaList = new ArrayList<>();
 
@@ -303,7 +313,7 @@ public class DbHelper extends SQLiteOpenHelper {
         List<Fertilizing_Round> fertilizingRoundList = new ArrayList<>();
 
         SQLiteDatabase db = this.getReadableDatabase();
-        String sql = String.format("select * from %s where task_id = %d", TABLE_NAME_FERTILIZING_ROUND, id);
+        String sql = String.format("select * from %s where task_id = %d order by %s", TABLE_NAME_FERTILIZING_ROUND, id, COL_ROUND);
 
         String dateStr;
 
