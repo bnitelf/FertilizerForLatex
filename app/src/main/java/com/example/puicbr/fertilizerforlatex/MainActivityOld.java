@@ -17,8 +17,8 @@ public class MainActivityOld extends AppCompatActivity
 
         Button btnAbout = (Button) findViewById(R.id.about_button);
         btnAbout.setOnClickListener(this);
-        Button btnStart = (Button) findViewById(R.id.start_button);
-        btnStart.setOnClickListener(this);
+        Button btnBegin = (Button) findViewById(R.id.begin_button);
+        btnBegin.setOnClickListener(this);
         Button btnExit = (Button) findViewById(R.id.exit_button);
         btnExit.setOnClickListener(this);
     }
@@ -30,10 +30,14 @@ public class MainActivityOld extends AppCompatActivity
                 startActivity(a);
                 break;
 
-            case R.id.start_button:
-                Intent s = new Intent(MainActivityOld.this,StartActivity.class);
-                startActivity(s);
+            case R.id.begin_button:
+                Intent b = new Intent(MainActivityOld.this,Sub_main.class);
+                startActivity(b);
                 break;
+
+
+
+
 
             case R.id.exit_button:
                 Intent intent = new Intent(Intent.ACTION_MAIN);

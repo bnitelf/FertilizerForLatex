@@ -53,8 +53,8 @@ public class StartActivity extends AppCompatActivity {
 
         edtName = (EditText) findViewById(R.id.edit_name);
         edtArea = (EditText) findViewById(R.id.edit_area);
-        edtAge = (EditText) findViewById(R.id.edit_age);
-        edtCount = (EditText) findViewById(R.id.edit_count);
+        //edtAge = (EditText) findViewById(R.id.edit_age);
+        //edtCount = (EditText) findViewById(R.id.edit_count);
 
         dbHelper = new DbHelper(this);
     }
@@ -87,12 +87,12 @@ public class StartActivity extends AppCompatActivity {
             if (edtArea.getText().length() == 0) {
                 edtArea.setError("กรุณาใส่พื้นที่จำนวนไร่ด้วย");
             }
-            if (edtAge.getText().length() == 0) {
-                edtAge.setError("กรุณาใส่อายุต้นยางด้วย");
-            }
-            if (edtCount.getText().length() == 0) {
-                edtCount.setError("กรุณาใส่จำนวนต้นยางด้วย");
-            }
+            //if (edtAge.getText().length() == 0) {
+              //  edtAge.setError("กรุณาใส่อายุต้นยางด้วย");
+            //}
+            //if (edtCount.getText().length() == 0) {
+              //  edtCount.setError("กรุณาใส่จำนวนต้นยางด้วย");
+            //}
 
             if (edtName.getText().length() > 0 ||
                     edtArea.getText().length() > 0 ||
@@ -101,14 +101,14 @@ public class StartActivity extends AppCompatActivity {
 
                 String taskname = edtName.getText().toString();
                 int area = Integer.parseInt(edtArea.getText().toString());
-                int age = Integer.parseInt(edtAge.getText().toString());
-                int count = Integer.parseInt(edtCount.getText().toString());
+                //int age = Integer.parseInt(edtAge.getText().toString());
+                //int count = Integer.parseInt(edtCount.getText().toString());
 
                 Task task = new Task();
                 task.name = taskname;
                 task.rai = area;
-                task.tree_age = age;
-                task.tree_amt = count;
+               // task.tree_age = age;
+                //task.tree_amt = count;
                 task.taskState = TaskState.active;
                 task.create_date = new Date();
 

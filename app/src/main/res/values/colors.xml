@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="background">#ffffffff</color>
+
     <color name="colorPrimary">#30cf14</color>
     <color name="colorPrimaryDark">#239c0e</color>
     <color name="colorAccent">#E87303</color>
@@ -11,4 +11,7 @@
     <color name="taskStatusAchieve">#0db10a</color>
     <color name="taskStatusCancel">#ec2626</color>
     <color name="taskStatusDelete">#868686</color>
+        <color name="background">#CCFF99</color>
+
+
 </resources>
