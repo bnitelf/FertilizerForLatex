@@ -10,8 +10,8 @@ public class Sub_main extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-       super.onCreate(savedInstanceState);
-       setContentView(R.layout.activity_sub_main);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_sub_main);
 
         //calpage
 
@@ -20,11 +20,15 @@ public class Sub_main extends AppCompatActivity {
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Sub_main.this,StartActivity.class);
+                Intent intent = new Intent(Sub_main.this, StartActivity.class);
                 Sub_main.this.startActivity(intent);
             }
         });
 
 
-       }
     }
+
+    public void test(){
+
+    }
+}
