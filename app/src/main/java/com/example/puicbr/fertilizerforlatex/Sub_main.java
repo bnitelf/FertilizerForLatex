@@ -10,8 +10,8 @@ public class Sub_main extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sub_main);
+       super.onCreate(savedInstanceState);
+       setContentView(R.layout.activity_sub_main);
 
         //calpage
 
@@ -30,5 +30,9 @@ public class Sub_main extends AppCompatActivity {
 
     public void test(){
 
+    }
+
+    public void test2(){
+        // Hi I'm Nut
     }
 }
