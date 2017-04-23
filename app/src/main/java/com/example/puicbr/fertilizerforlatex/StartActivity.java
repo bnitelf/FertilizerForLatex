@@ -13,18 +13,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.puicbr.fertilizerforlatex.Global.ViewInfo;
+import com.example.puicbr.fertilizerforlatex.helper.DateHelper;
 import com.example.puicbr.fertilizerforlatex.helper.DbHelper;
+import com.example.puicbr.fertilizerforlatex.helper.FertilizingHelper;
 import com.example.puicbr.fertilizerforlatex.helper.FertilizingRoundHelper;
 import com.example.puicbr.fertilizerforlatex.model.Constants.TaskState;
 import com.example.puicbr.fertilizerforlatex.model.Fertilizing_Round;
 import com.example.puicbr.fertilizerforlatex.model.Formula;
 import com.example.puicbr.fertilizerforlatex.model.Task;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -35,6 +39,7 @@ public class StartActivity extends AppCompatActivity {
     private EditText edtArea = null;
     private EditText edtAge = null;
     private EditText edtCount = null;
+    private DatePicker datePicker_start = null;
 
     private DbHelper dbHelper = null;
 
@@ -53,6 +58,7 @@ public class StartActivity extends AppCompatActivity {
 
         edtName = (EditText) findViewById(R.id.edit_name);
         edtArea = (EditText) findViewById(R.id.edit_area);
+        datePicker_start = (DatePicker) findViewById(R.id.datePicker);
         //edtAge = (EditText) findViewById(R.id.edit_age);
         //edtCount = (EditText) findViewById(R.id.edit_count);
 
@@ -95,22 +101,28 @@ public class StartActivity extends AppCompatActivity {
             //}
 
             if (edtName.getText().length() > 0 ||
-                    edtArea.getText().length() > 0 ||
-                    edtAge.getText().length() > 0 ||
-                    edtCount.getText().length() > 0) {
+                    edtArea.getText().length() > 0) {
 
                 String taskname = edtName.getText().toString();
                 int area = Integer.parseInt(edtArea.getText().toString());
                 //int age = Integer.parseInt(edtAge.getText().toString());
                 //int count = Integer.parseInt(edtCount.getText().toString());
 
+                Calendar calendar_start = Calendar.getInstance();
+                calendar_start.set(datePicker_start.getYear(),datePicker_start.getMonth(),datePicker_start.getDayOfMonth());
+                Date start_date = calendar_start.getTime();
+
+                Date empty_date=DateHelper.getEmptyDate();
+
                 Task task = new Task();
                 task.name = taskname;
                 task.rai = area;
-               // task.tree_age = age;
-                //task.tree_amt = count;
+                task.tree_age = DateHelper.GetCurrentTreeAge(start_date);
+                task.tree_amt = FertilizingHelper.calTreeAmountFromArea(area);
                 task.taskState = TaskState.active;
                 task.create_date = new Date();
+                task.start_date = start_date;
+                task.harvest_date = empty_date;
 
                 dbHelper.createTask(task);
 

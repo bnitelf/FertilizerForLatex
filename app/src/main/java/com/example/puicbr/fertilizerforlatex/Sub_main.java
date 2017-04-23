@@ -28,11 +28,4 @@ public class Sub_main extends AppCompatActivity {
 
     }
 
-    public void test(){
-
-    }
-
-    public void test2(){
-        // Hi I'm Nut
-    }
-}
+   }

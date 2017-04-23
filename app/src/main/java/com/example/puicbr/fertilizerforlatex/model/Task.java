@@ -14,19 +14,23 @@ public class Task {
     public int tree_age;
     public int tree_amt;
     public Date create_date;
+    public Date start_date;
+    public Date harvest_date;
     public TaskState taskState;
 
     public Task(){
 
     }
 
-    public Task(int id, String name, int rai, int tree_age, int tree_amt, Date create_date, TaskState taskState) {
+    public Task(int id, String name, int rai, int tree_age, int tree_amt, Date create_date, Date start_date, Date harvest_date, TaskState taskState) {
         this.id = id;
         this.name = name;
         this.rai = rai;
         this.tree_age = tree_age;
         this.tree_amt = tree_amt;
         this.create_date = create_date;
+        this.start_date = start_date;
+        this.harvest_date = harvest_date;
         this.taskState = taskState;
     }
 

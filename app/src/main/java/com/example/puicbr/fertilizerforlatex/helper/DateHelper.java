@@ -53,6 +53,21 @@ public class DateHelper {
     }
 
     /**
+     * Get อายุต้นยางปัจจุบันโดยคำนวณจากวันที่เริ่มปลูก
+     * @param start_date วันที่เริ่มปลูก
+     * @return
+     */
+    public static int GetCurrentTreeAge(Date start_date){
+        int currentTreeAge = 0;
+
+        Date today = new Date();
+
+        currentTreeAge = (int)getMonthDiff(today,start_date);
+
+        return currentTreeAge;
+    }
+
+    /**
      * Get วันที่ในการให้ปุ๋ยรอบต่อไปของ task
      * @param task task ที่ต้องการหาวันที่การใส่ปุ๋ยรอบต่อไป
      * @param formulaList list ของสูตรการให้ปุ๋ย (ข้อมูลนี้ต้องดึงมาจาก database sqlite)
@@ -125,5 +140,14 @@ public class DateHelper {
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.YEAR, year);
         return cal.getActualMaximum(Calendar.DAY_OF_YEAR) > 365;
+
+
+    }
+    public static Date getEmptyDate(){
+//        Calendar calendar_empty = Calendar.getInstance();
+//        calendar_empty.clear();
+//
+//        Date empty_date = calendar_empty.getTime();
+        return null;
     }
 }

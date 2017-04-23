@@ -34,6 +34,8 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String COL_TREE_AMT = "tree_amt";
     public static final String COL_CREATE_DATE = "create_date";
     public static final String COL_STATE = "state";
+    public static final String COL_START_DATE = "start_date";
+    public static final String COL_HARVEST_DATE = "harvest_date";
 
     public static final String TABLE_NAME_FORMULA = "formula";
     public static final String COL_USE_PER_TREE = "use_per_tree";
@@ -53,6 +55,8 @@ public class DbHelper extends SQLiteOpenHelper {
                     + COL_TREE_AGE + " INTEGER, "
                     + COL_TREE_AMT + " INTEGER, "
                     + COL_CREATE_DATE + " DATETIME, "
+                    + COL_START_DATE + " DATETIME, "
+                    + COL_HARVEST_DATE + " DATETIME, "
                     + COL_STATE + " TEXT );";
 
     private static final String CREATE_TABLE_FERTILIZING_ROUND =
@@ -69,6 +73,9 @@ public class DbHelper extends SQLiteOpenHelper {
                     + COL_TREE_AGE + " INTEGER PRIMARY KEY , "
                     + COL_USE_PER_TREE + " INTEGER, "
                     + COL_AREA_USED + " TEXT );";
+
+
+    private static final String EMPTY_DATE_STRING = "0000-00-00";
 
     public DbHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -115,6 +122,13 @@ public class DbHelper extends SQLiteOpenHelper {
         values.put(COL_TREE_AGE, user_entry.tree_age);
         values.put(COL_TREE_AMT, user_entry.tree_amt);
         values.put(COL_CREATE_DATE, dateFormat.format(user_entry.create_date));
+        values.put(COL_START_DATE, dateFormat.format(user_entry.start_date));
+
+        if(user_entry.harvest_date != null)
+            values.put(COL_HARVEST_DATE, dateFormat.format(user_entry.harvest_date));
+        else
+            values.put(COL_HARVEST_DATE, EMPTY_DATE_STRING);
+
         values.put(COL_STATE, user_entry.taskState.toString());
 
         // Inserting Row
@@ -133,6 +147,13 @@ public class DbHelper extends SQLiteOpenHelper {
         values.put(COL_TREE_AGE, user_entry.tree_age);
         values.put(COL_TREE_AMT, user_entry.tree_amt);
         values.put(COL_CREATE_DATE, dateFormat.format(user_entry.create_date));
+        values.put(COL_START_DATE, dateFormat.format(user_entry.start_date));
+
+        if(user_entry.harvest_date != null)
+            values.put(COL_HARVEST_DATE, dateFormat.format(user_entry.harvest_date));
+        else
+            values.put(COL_HARVEST_DATE, EMPTY_DATE_STRING);
+
         values.put(COL_STATE, user_entry.taskState.toString());
 
         // Inserting Row
@@ -160,6 +181,8 @@ public class DbHelper extends SQLiteOpenHelper {
         String sql = "select * from " + TABLE_NAME_TASK;
 
         String create_date;
+        String start_date;
+        String harvest_date;
         String taskState;
 
         Cursor c =  db.rawQuery(sql, null );
@@ -174,6 +197,12 @@ public class DbHelper extends SQLiteOpenHelper {
 
                 create_date = c.getString(c.getColumnIndex(COL_CREATE_DATE));
                 task.create_date = dateStringToDate(create_date);
+
+                start_date = c.getString(c.getColumnIndex(COL_START_DATE));
+                task.start_date = dateStringToDate(start_date);
+
+                harvest_date = c.getString(c.getColumnIndex(COL_HARVEST_DATE));
+                task.harvest_date = dateStringToDate(harvest_date);
 
                 taskState = c.getString(c.getColumnIndex(COL_STATE));
                 task.taskState = TaskState.valueOf(taskState);
@@ -190,7 +219,11 @@ public class DbHelper extends SQLiteOpenHelper {
         SimpleDateFormat dateFormat = new SimpleDateFormat ("yyyy-MM-dd");
 
         try {
-            dateOut = dateFormat.parse(date);
+            if(EMPTY_DATE_STRING.equals(date))
+                dateOut = null;
+            else
+                dateOut = dateFormat.parse(date);
+
             return dateOut;
         }catch (ParseException e) {
             System.out.println("Unparseable using " + dateFormat);

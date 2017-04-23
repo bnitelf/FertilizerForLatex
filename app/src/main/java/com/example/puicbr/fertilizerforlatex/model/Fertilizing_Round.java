@@ -11,4 +11,5 @@ public class Fertilizing_Round {
     public int round;
     public int tree_age;
     public Date date;
+    public int finish_state;
 }

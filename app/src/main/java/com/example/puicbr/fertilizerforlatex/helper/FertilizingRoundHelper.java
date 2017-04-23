@@ -23,7 +23,7 @@ public class FertilizingRoundHelper {
 
         for (Formula f : formulaList){
 
-            calendar = DateHelper.toCalendar(task.create_date);
+            calendar = DateHelper.toCalendar(task.start_date);
             calendar.add(Calendar.MONTH, f.tree_age);
 
             round += 1;
