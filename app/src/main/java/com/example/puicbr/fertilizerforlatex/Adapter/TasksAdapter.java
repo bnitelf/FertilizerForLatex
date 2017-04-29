@@ -108,6 +108,7 @@ public class TasksAdapter extends BaseAdapter {
             } else {
                 // Find dayLeft
                 long dayLeft = DateHelper.getDateDiff(dateNow, nextFertilizerRound.date, TimeUnit.DAYS);
+                dayLeft = -dayLeft;
                 String dayLeftStr = Long.toString(dayLeft);
 
                 // Set dayLeft & nextDate

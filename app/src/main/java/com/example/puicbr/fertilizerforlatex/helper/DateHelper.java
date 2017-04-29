@@ -15,19 +15,25 @@ import java.util.concurrent.TimeUnit;
 public class DateHelper {
     /**
      * Get a diff between two dates
-     * @param date1 the oldest date
-     * @param date2 the newest date
+     * @param date1 the main date
+     * @param date2 the comparing date
      * @param timeUnit the unit in which you want the diff
      * @return the diff value, in the provided unit
      */
     public static long getDateDiff(Date date1, Date date2, TimeUnit timeUnit) {
-        long diffInMillies = date2.getTime() - date1.getTime();
+        long diffInMillies = date1.getTime() - date2.getTime();
         return timeUnit.convert(diffInMillies,TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * Get a diff between two months
+     * @param date1 the main date
+     * @param date2 the comparing date
+     * @return
+     */
     public static long getMonthDiff(Date date1, Date date2) {
-        long dayDiff1 = DateHelper.getDateDiff(date1, date2, TimeUnit.DAYS);
-        double monthDiff = Math.round((double) dayDiff1 / 30);
+        long dayDiff1 = getDateDiff(date1, date2, TimeUnit.DAYS);
+        double monthDiff = Math.floor((double) dayDiff1 / 30);
         return (long)monthDiff;
     }
 
@@ -47,7 +53,7 @@ public class DateHelper {
 
         Date today = new Date();
 
-        currentTreeAge = (int) (task.tree_age + (getDateDiff(today, task.create_date, TimeUnit.DAYS) / 30));
+        currentTreeAge = (int) (task.tree_age + getMonthDiff(today, task.start_date));
 
         return currentTreeAge;
     }
@@ -62,7 +68,7 @@ public class DateHelper {
 
         Date today = new Date();
 
-        currentTreeAge = (int)getMonthDiff(today,start_date);
+        currentTreeAge = (int)getMonthDiff(today, start_date);
 
         return currentTreeAge;
     }
