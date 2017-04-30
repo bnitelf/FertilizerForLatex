@@ -23,7 +23,7 @@
 
 
     <Button
-        android:id="@+id/sum_botton"
+        android:id="@+id/sum_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/sum_lable"/>

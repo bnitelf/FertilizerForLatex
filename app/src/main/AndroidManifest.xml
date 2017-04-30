@@ -33,7 +33,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Sub_main"></activity>
+        <activity android:name=".Sub_main" />
+        <activity android:name=".TaskListActivity" />
+        <activity android:name=".TaskDetailActivity"></activity>
     </application>
 
 </manifest>
