@@ -98,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="32dp"
                 android:paddingBottom="16dp"
-                android:text="เลือกวันที่ต้องการเริ่มใส่ปุ๋ย"/>
+                android:text="เลือกวันที่เริ่มปลูก"/>
 
             <DatePicker
                 android:layout_width="wrap_content"

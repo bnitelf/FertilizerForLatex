@@ -1,6 +1,7 @@
 package com.example.puicbr.fertilizerforlatex;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -50,6 +51,10 @@ public class TaskListActivity extends AppCompatActivity implements AdapterView.O
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
         Task selectedTask = taskList.get(position);
         Toast.makeText(this, selectedTask.name + " selected", Toast.LENGTH_LONG).show();
+
+        Intent myIntent = new Intent(TaskListActivity.this, TaskDetailActivity.class);
+        myIntent.putExtra("task_id",selectedTask.id );
+        startActivity(myIntent);
     }
 
 }

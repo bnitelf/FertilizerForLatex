@@ -35,7 +35,9 @@
         </activity>
         <activity android:name=".Sub_main" />
         <activity android:name=".TaskListActivity" />
-        <activity android:name=".TaskDetailActivity"></activity>
+        <activity android:name=".TaskDetailActivity" />
+        <activity android:name=".TaskEditActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
