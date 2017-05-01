@@ -48,6 +48,17 @@ public class DateHelper {
         return dateStr;
     }
 
+    /**
+     * Format date ให้เป็น string ในรูป dd-MMM-yyyy เช่น 31-May-2017
+     * @param d
+     * @return
+     */
+    public static String formatDateToDateStringFertilizingRound(Date d){
+        SimpleDateFormat dateFormat = new SimpleDateFormat ("dd-MMM-yyyy");
+        String dateStr = dateFormat.format(d);
+        return dateStr;
+    }
+
     public static int GetCurrentTreeAge(Task task){
         int currentTreeAge = 0;
 
@@ -98,7 +109,7 @@ public class DateHelper {
         if(nextFertilizingTreeAge != -1){
             int treeAgeDiff = nextFertilizingTreeAge - currentTreeAge;
 
-            calendarNext.add(Calendar.MONTH, treeAgeDiff);
+            calendarNext.add(Calendar.DAY_OF_MONTH, treeAgeDiff * 30);
 
             next = calendarNext.getTime();
         }
@@ -122,7 +133,7 @@ public class DateHelper {
         if(nextFertilizingTreeAge != -1){
             int treeAgeDiff = nextFertilizingTreeAge - currentTreeAge;
 
-            calendarNext.add(Calendar.MONTH, treeAgeDiff);
+            calendarNext.add(Calendar.DAY_OF_MONTH, treeAgeDiff * 30);
 
             next = calendarNext.getTime();
         }

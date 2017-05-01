@@ -39,4 +39,12 @@ public class Task {
         return String.format("Task {id = %d, name = %s, rai = %d, tree_age = %d, tree_amt = %d, create_date = %s, state = %s}",
                 this.id, this.name, this.rai, this.tree_age, this.tree_amt, this.create_date, this.taskState);
     }
+
+    public boolean isHarvested(){
+        if(harvest_date == null){
+            return false;
+        } else {
+            return true;
+        }
+    }
 }

@@ -58,7 +58,9 @@ public class TaskDetailActivity extends AppCompatActivity {
         btnViewFreRound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent myIntent = new Intent(TaskDetailActivity.this, FertilizingRoundActivity.class);
+                myIntent.putExtra("task_id", task_id);
+                startActivity(myIntent);
             }
 
         });

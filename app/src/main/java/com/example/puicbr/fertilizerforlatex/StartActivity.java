@@ -1,24 +1,16 @@
 package com.example.puicbr.fertilizerforlatex;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
-import com.example.puicbr.fertilizerforlatex.Global.ViewInfo;
 import com.example.puicbr.fertilizerforlatex.helper.DateHelper;
 import com.example.puicbr.fertilizerforlatex.helper.DbHelper;
 import com.example.puicbr.fertilizerforlatex.helper.FertilizingHelper;
@@ -119,7 +111,7 @@ public class StartActivity extends AppCompatActivity {
                 task.rai = area;
                 task.tree_age = DateHelper.GetCurrentTreeAge(start_date);
                 task.tree_amt = FertilizingHelper.calTreeAmountFromArea(area);
-                task.taskState = TaskState.active;
+                task.taskState = TaskState.ACTIVE;
                 task.create_date = new Date();
                 task.start_date = start_date;
                 task.harvest_date = empty_date;

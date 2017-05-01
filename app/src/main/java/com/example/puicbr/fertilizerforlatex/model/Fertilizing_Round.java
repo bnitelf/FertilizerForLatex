@@ -1,5 +1,7 @@
 package com.example.puicbr.fertilizerforlatex.model;
 
+import com.example.puicbr.fertilizerforlatex.model.Constants.FertilizingRoundState;
+
 import java.util.Date;
 
 /**
@@ -11,5 +13,9 @@ public class Fertilizing_Round {
     public int round;
     public int tree_age;
     public Date date;
-    public int finish_state;
+    public FertilizingRoundState finish_state;
+
+    public Fertilizing_Round(){
+        finish_state = FertilizingRoundState.NOT_DONE;
+    }
 }

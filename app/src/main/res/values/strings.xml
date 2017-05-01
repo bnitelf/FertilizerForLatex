@@ -31,6 +31,7 @@
     <string name="title_activity_add_new_task">AddNewTaskActivity</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_fertilizing_round">FertilizingRoundActivity</string>
 
 
 </resources>

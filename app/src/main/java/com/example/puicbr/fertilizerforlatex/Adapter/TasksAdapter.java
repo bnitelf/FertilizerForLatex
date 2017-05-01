@@ -15,7 +15,6 @@ import com.example.puicbr.fertilizerforlatex.model.Fertilizing_Round;
 import com.example.puicbr.fertilizerforlatex.model.Formula;
 import com.example.puicbr.fertilizerforlatex.model.Task;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -83,10 +82,10 @@ public class TasksAdapter extends BaseAdapter {
         String curTreeAgeStr = Integer.toString(curTreeAge);
         tvTreeAge.setText(curTreeAgeStr);
 
-        // set DayLeft และ NextDate ก็ต่อเมื่อ task state ไม่ใช่ achieve กับ cancel
-        if (task.taskState != TaskState.achieve && task.taskState != TaskState.cancel) {
+        // set DayLeft และ NextDate ก็ต่อเมื่อ task state ไม่ใช่ ACHIEVE กับ CANCEL
+        if (task.taskState != TaskState.ACHIEVE && task.taskState != TaskState.CANCEL) {
             List<Formula> formulaList = dbHelper.selectAllFormula();
-            List<Fertilizing_Round> fertilizingRoundList = dbHelper.SelectFertilizing_RoundByTaskId(task.id);
+            List<Fertilizing_Round> fertilizingRoundList = dbHelper.selectFertilizing_RoundByTaskId(task.id);
 
             Fertilizing_Round nextFertilizerRound = null;
             int compareDateResult = 0;

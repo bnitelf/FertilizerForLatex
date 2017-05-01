@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.puicbr.fertilizerforlatex.model.Constants.FertilizingRoundState;
 import com.example.puicbr.fertilizerforlatex.model.Constants.TaskState;
 import com.example.puicbr.fertilizerforlatex.model.Fertilizing_Round;
 import com.example.puicbr.fertilizerforlatex.model.Formula;
@@ -45,6 +46,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String COL_TASK_ID = "task_id";
     public static final String COL_ROUND = "round";
     public static final String COL_DATE = "create_date";
+    public static final String COL_FINISH_STATE = "finish_state";
 
     // Create Table syntax
     private static final String CREATE_TABLE_TASK =
@@ -65,7 +67,8 @@ public class DbHelper extends SQLiteOpenHelper {
                     + COL_TASK_ID + " INTEGER , "
                     + COL_ROUND + " INTEGER, "
                     + COL_TREE_AGE + " INTEGER, "
-                    + COL_DATE + " DATETIME );";
+                    + COL_DATE + " DATETIME, "
+                    + COL_FINISH_STATE + " TEXT );";
 
 
     private static final String CREATE_TABLE_FORMULA =
@@ -170,7 +173,7 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     public void markTaskAsDelete(Task task){
-        task.taskState = TaskState.delete;
+        task.taskState = TaskState.DELETE;
         updateTask(task);
     }
 
@@ -205,7 +208,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 task.harvest_date = dateStringToDate(harvest_date);
 
                 taskState = c.getString(c.getColumnIndex(COL_STATE));
-                task.taskState = TaskState.valueOf(taskState);
+                task.taskState = TaskState.valueOf(taskState.toUpperCase());
 
                 taskList.add(task);
             }while(c.moveToNext());
@@ -312,6 +315,7 @@ public class DbHelper extends SQLiteOpenHelper {
         values.put(COL_ROUND, fertilizingRound.round);
         values.put(COL_TREE_AGE, fertilizingRound.tree_age);
         values.put(COL_DATE, dateFormat.format(fertilizingRound.date));
+        values.put(COL_FINISH_STATE, fertilizingRound.finish_state.toString());
 
         // Inserting Row
         db.insert(TABLE_NAME_FERTILIZING_ROUND, null, values);
@@ -328,6 +332,7 @@ public class DbHelper extends SQLiteOpenHelper {
         values.put(COL_ROUND, fertilizingRound.round);
         values.put(COL_TREE_AGE, fertilizingRound.tree_age);
         values.put(COL_DATE, dateFormat.format(fertilizingRound.date));
+        values.put(COL_FINISH_STATE, fertilizingRound.finish_state.toString());
 
         // Inserting Row
         db.update(TABLE_NAME_FERTILIZING_ROUND, values, COL_ID + " = ?",
@@ -342,27 +347,38 @@ public class DbHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public List<Fertilizing_Round> SelectFertilizing_RoundByTaskId(int id){
+    public void deleteFertilizing_RoundByTaskId(int task_id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME_FERTILIZING_ROUND, COL_TASK_ID + " = ?",
+                new String[]{String.valueOf(task_id)});
+        db.close();
+    }
+
+    public List<Fertilizing_Round> selectFertilizing_RoundByTaskId(int id){
         List<Fertilizing_Round> fertilizingRoundList = new ArrayList<>();
 
         SQLiteDatabase db = this.getReadableDatabase();
         String sql = String.format("select * from %s where task_id = %d order by %s", TABLE_NAME_FERTILIZING_ROUND, id, COL_ROUND);
 
         String dateStr;
+        String finishStateStr;
 
         Cursor c =  db.rawQuery(sql, null );
         if(c.moveToFirst()){
             do{
-                Fertilizing_Round task = new Fertilizing_Round();
-                task.id = c.getInt(c.getColumnIndex(COL_ID));
-                task.task_id = c.getInt(c.getColumnIndex(COL_TASK_ID));
-                task.round = c.getInt(c.getColumnIndex(COL_ROUND));
-                task.tree_age = c.getInt(c.getColumnIndex(COL_TREE_AGE));
+                Fertilizing_Round fRound = new Fertilizing_Round();
+                fRound.id = c.getInt(c.getColumnIndex(COL_ID));
+                fRound.task_id = c.getInt(c.getColumnIndex(COL_TASK_ID));
+                fRound.round = c.getInt(c.getColumnIndex(COL_ROUND));
+                fRound.tree_age = c.getInt(c.getColumnIndex(COL_TREE_AGE));
 
                 dateStr = c.getString(c.getColumnIndex(COL_DATE));
-                task.date = dateStringToDate(dateStr);
+                fRound.date = dateStringToDate(dateStr);
 
-                fertilizingRoundList.add(task);
+                finishStateStr = c.getString(c.getColumnIndex(COL_FINISH_STATE));
+                fRound.finish_state = FertilizingRoundState.valueOf(finishStateStr.toUpperCase());
+
+                fertilizingRoundList.add(fRound);
             }while(c.moveToNext());
         }
 
