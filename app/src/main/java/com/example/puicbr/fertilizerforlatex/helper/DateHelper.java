@@ -167,4 +167,14 @@ public class DateHelper {
 //        Date empty_date = calendar_empty.getTime();
         return null;
     }
+
+    public static Calendar AddDay(Calendar calendar, int addNumDay){
+        calendar.add(Calendar.DAY_OF_MONTH, addNumDay);
+        return calendar;
+    }
+
+    public static Calendar AddMonth(Calendar calendar, int addNumMonth){
+        calendar.add(Calendar.MONTH, addNumMonth);
+        return calendar;
+    }
 }
