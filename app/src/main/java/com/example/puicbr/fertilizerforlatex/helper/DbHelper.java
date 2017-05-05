@@ -37,6 +37,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String COL_STATE = "state";
     public static final String COL_START_DATE = "start_date";
     public static final String COL_HARVEST_DATE = "harvest_date";
+    public static final String COL_LOCATION = "location";
 
     public static final String TABLE_NAME_FORMULA = "formula";
     public static final String COL_USE_PER_TREE = "use_per_tree";
@@ -56,6 +57,7 @@ public class DbHelper extends SQLiteOpenHelper {
                     + COL_RAI + " INTEGER, "
                     + COL_TREE_AGE + " INTEGER, "
                     + COL_TREE_AMT + " INTEGER, "
+                    + COL_LOCATION + " TEXT, "
                     + COL_CREATE_DATE + " DATETIME, "
                     + COL_START_DATE + " DATETIME, "
                     + COL_HARVEST_DATE + " DATETIME, "
@@ -124,6 +126,7 @@ public class DbHelper extends SQLiteOpenHelper {
         values.put(COL_RAI, user_entry.rai);
         values.put(COL_TREE_AGE, user_entry.tree_age);
         values.put(COL_TREE_AMT, user_entry.tree_amt);
+        values.put(COL_LOCATION, user_entry.location);
         values.put(COL_CREATE_DATE, dateFormat.format(user_entry.create_date));
         values.put(COL_START_DATE, dateFormat.format(user_entry.start_date));
 
@@ -149,6 +152,7 @@ public class DbHelper extends SQLiteOpenHelper {
         values.put(COL_RAI, user_entry.rai);
         values.put(COL_TREE_AGE, user_entry.tree_age);
         values.put(COL_TREE_AMT, user_entry.tree_amt);
+        values.put(COL_LOCATION, user_entry.location);
         values.put(COL_CREATE_DATE, dateFormat.format(user_entry.create_date));
         values.put(COL_START_DATE, dateFormat.format(user_entry.start_date));
 
