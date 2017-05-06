@@ -28,6 +28,7 @@ public class StartActivity extends AppCompatActivity {
 
     private RelativeLayout rootContainer = null;
     private EditText edtName = null;
+    private EditText edtArea02=null;
     private EditText edtArea = null;
     private EditText edtAge = null;
     private EditText edtCount = null;
@@ -49,6 +50,7 @@ public class StartActivity extends AppCompatActivity {
         rootContainer = (RelativeLayout) findViewById(R.id.rootContainer);
 
         edtName = (EditText) findViewById(R.id.edit_name);
+        edtArea02= (EditText)findViewById(R.id.edit_area02);
         edtArea = (EditText) findViewById(R.id.edit_area);
         datePicker_start = (DatePicker) findViewById(R.id.datePicker);
         //edtAge = (EditText) findViewById(R.id.edit_age);
@@ -85,15 +87,16 @@ public class StartActivity extends AppCompatActivity {
             if (edtArea.getText().length() == 0) {
                 edtArea.setError("กรุณาใส่พื้นที่จำนวนไร่ด้วย");
             }
-            //if (edtAge.getText().length() == 0) {
-              //  edtAge.setError("กรุณาใส่อายุต้นยางด้วย");
-            //}
+            if (edtArea02.getText().length() == 0) {
+               edtArea02.setError("กรุณาใส่ที่อยู่ของแปลง");
+            }
             //if (edtCount.getText().length() == 0) {
               //  edtCount.setError("กรุณาใส่จำนวนต้นยางด้วย");
             //}
 
-            if (edtName.getText().length() > 0 ||
-                    edtArea.getText().length() > 0) {
+            if (edtName.getText().length() > 0 &&
+                    edtArea.getText().length() > 0&&
+                    edtArea02.getText().length()>0) {
 
                 String taskname = edtName.getText().toString();
                 int area = Integer.parseInt(edtArea.getText().toString());
@@ -108,6 +111,7 @@ public class StartActivity extends AppCompatActivity {
 
                 Task task = new Task();
                 task.name = taskname;
+                task.location = edtArea02.getText().toString();
                 task.rai = area;
                 task.tree_age = DateHelper.GetCurrentTreeAge(start_date);
                 task.tree_amt = FertilizingHelper.calTreeAmountFromArea(area);

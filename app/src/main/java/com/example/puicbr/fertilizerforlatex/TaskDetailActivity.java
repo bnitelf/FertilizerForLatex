@@ -14,6 +14,7 @@ import com.example.puicbr.fertilizerforlatex.model.Task;
 
 public class TaskDetailActivity extends AppCompatActivity {
 
+    private TextView txtArea02 = null;
     private TextView txtRai = null;
     private TextView txtTon = null;
     private TextView txtAgeTreeMonth =null;
@@ -32,6 +33,7 @@ public class TaskDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
        setContentView(R.layout.activity_task_detail);
 
+        txtArea02 = (TextView)findViewById(R.id.edit_area02);
         txtTon = (TextView) findViewById(R.id.txt_tree_amt);
         txtAgeTreeMonth = (TextView) findViewById(R.id.txt_tree_age);
         txtDate = (TextView) findViewById(R.id.txt_start_date);
@@ -69,6 +71,7 @@ public class TaskDetailActivity extends AppCompatActivity {
         Task task = dbHelper.selectTaskById(task_id);
 
         txtName.setText(task.name);
+        txtArea02.setText(task.location);
         txtTon.setText(task.tree_amt + " ต้น");
         txtRai.setText(task.rai + " ไร่");
         txtDate.setText(DateHelper.formatDateToDateString(task.start_date));

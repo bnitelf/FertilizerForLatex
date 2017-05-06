@@ -71,10 +71,10 @@ public class TaskEditActivity extends AppCompatActivity {
         chkHarvest.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-            if (b == true) {
-                datePicker_harvest.setVisibility(View.VISIBLE);
-            } else
-                datePicker_harvest.setVisibility(View.INVISIBLE);
+                if (b == true) {
+                    datePicker_harvest.setVisibility(View.VISIBLE);
+                } else
+                    datePicker_harvest.setVisibility(View.INVISIBLE);
 
             }
         });
@@ -134,55 +134,61 @@ public class TaskEditActivity extends AppCompatActivity {
 
                 int area = Integer.parseInt(edtArea.getText().toString());
                 // ถ้ามีการ update จำนวนไร่ ต้อง cal ค่าจำนวนต้นยางใหม่
-                if(area != task.rai){
+                if (area != task.rai) {
                     task.rai = area;
                     task.tree_amt = FertilizingHelper.calTreeAmountFromArea(area);
                 }
 
                 // ถ้ามีการเช็คว่ากรีดยางแล้วให้เก็บวันที่กรีดด้วย
-                if(chkHarvest.isChecked()){
+                if (chkHarvest.isChecked()) {
                     Calendar calendar_harvestDate = Calendar.getInstance();
                     calendar_harvestDate.set(datePicker_harvest.getYear(), datePicker_harvest.getMonth(), datePicker_harvest.getDayOfMonth());
 
                     task.harvest_date = calendar_harvestDate.getTime();
+
+//                    List<Formula> formulaList = dbHelper.selectAllFormula();
+//                    //List<Fertilizing_Round> fertilizingRoundList = FertilizingRoundHelper.generateFertilizingRoundList(newTask, formulaList);
+//
+//                    for (Fertilizing_Round fRound : fertilizingRoundList){
+//                        dbHelper.createFertilizing_Round(fRound);
                 }
-
-                Calendar calendar_newStart = Calendar.getInstance();
-                calendar_newStart.set(datePicker_start.getYear(),datePicker_start.getMonth(),datePicker_start.getDayOfMonth());
-
-                Calendar calendar_oldStart = DateHelper.toCalendar(task.start_date);
-
-                // ถ้ามีการ update วันที่เริ่มปลูกต้อง cal อายุต้นและรอบการให้ปุ๋ยใหม่
-                if(!calendar_oldStart.equals(calendar_newStart)){
-                    task.start_date = calendar_newStart.getTime();
-                    task.tree_age = DateHelper.GetCurrentTreeAge(task.start_date);
-
-                    // DELETE รอบการให้ปุ๋ยเก่า
-                    dbHelper.deleteFertilizing_RoundByTaskId(task.id);
-
-                    // cal และ add รอบการให้ปุ๋ยใหม่
-                    List<Formula> formulaList = dbHelper.selectAllFormula();
-                    List<Fertilizing_Round> fertilizingRoundList = FertilizingRoundHelper.generateFertilizingRoundList(task, formulaList);
-
-                    for (Fertilizing_Round fRound : fertilizingRoundList){
-                        dbHelper.createFertilizing_Round(fRound);
-                    }
-                }
-
-                dbHelper.updateTask(task);
-
-                Dialog dialog = MyDialogBuilder.CreateDialog(this, "Edit Successful", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        finish();
-                    }
-                });
-                dialog.show();
-
             }
 
+            Calendar calendar_newStart = Calendar.getInstance();
+            calendar_newStart.set(datePicker_start.getYear(), datePicker_start.getMonth(), datePicker_start.getDayOfMonth());
+
+            Calendar calendar_oldStart = DateHelper.toCalendar(task.start_date);
+
+            // ถ้ามีการ update วันที่เริ่มปลูกต้อง cal อายุต้นและรอบการให้ปุ๋ยใหม่
+            if (!calendar_oldStart.equals(calendar_newStart)) {
+                task.start_date = calendar_newStart.getTime();
+                task.tree_age = DateHelper.GetCurrentTreeAge(task.start_date);
+
+                // DELETE รอบการให้ปุ๋ยเก่า
+                dbHelper.deleteFertilizing_RoundByTaskId(task.id);
+
+                // cal และ add รอบการให้ปุ๋ยใหม่
+                List<Formula> formulaList = dbHelper.selectAllFormula();
+                List<Fertilizing_Round> fertilizingRoundList = FertilizingRoundHelper.generateFertilizingRoundList(task, formulaList);
+
+                for (Fertilizing_Round fRound : fertilizingRoundList) {
+                    dbHelper.createFertilizing_Round(fRound);
+                }
+            }
+
+            dbHelper.updateTask(task);
+
+            Dialog dialog = MyDialogBuilder.CreateDialog(this, "Edit Successful", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    finish();
+                }
+            });
+            dialog.show();
 
         }
+
+
         return true;
     }
 }
