@@ -90,9 +90,11 @@ public class TaskEditActivity extends AppCompatActivity {
 
         datePicker_start.updateDate(dateStartDate.get(Calendar.YEAR), dateStartDate.get(Calendar.MONTH), dateStartDate.get(Calendar.DAY_OF_MONTH));
 
-        if (task.harvest_date != null) {
+        if (task.isHarvested()) {
             chkHarvest.setChecked(true);
-            datePicker_harvest.updateDate(task.harvest_date.getYear(), task.harvest_date.getMonth(), task.harvest_date.getDay());
+
+            Calendar dateHarvestDate = DateHelper.toCalendar(task.harvest_date);
+            datePicker_harvest.updateDate(dateHarvestDate.get(Calendar.YEAR), dateHarvestDate.get(Calendar.MONTH), dateHarvestDate.get(Calendar.DAY_OF_MONTH));
 
         } else {
 
@@ -127,8 +129,7 @@ public class TaskEditActivity extends AppCompatActivity {
                 edtArea.setError("กรุณาใส่พื้นที่จำนวนไร่ด้วย");
             }
 
-            if (edtName.getText().length() > 0 ||
-                    edtArea.getText().length() > 0) {
+            if (edtName.getText().length() > 0 || edtArea.getText().length() > 0) {
 
                 task.name = edtName.getText().toString();
 
@@ -139,53 +140,83 @@ public class TaskEditActivity extends AppCompatActivity {
                     task.tree_amt = FertilizingHelper.calTreeAmountFromArea(area);
                 }
 
+                Calendar calendar_newStart = Calendar.getInstance();
+                calendar_newStart.set(datePicker_start.getYear(), datePicker_start.getMonth(), datePicker_start.getDayOfMonth());
+                String newStartDateStr = DateHelper.formatDateToDateString(calendar_newStart);
+
+                Calendar calendar_oldStart = DateHelper.toCalendar(task.start_date);
+                String oldStartDateStr = DateHelper.formatDateToDateString(calendar_oldStart);
+
+
                 // ถ้ามีการเช็คว่ากรีดยางแล้วให้เก็บวันที่กรีดด้วย
                 if (chkHarvest.isChecked()) {
                     Calendar calendar_harvestDate = Calendar.getInstance();
                     calendar_harvestDate.set(datePicker_harvest.getYear(), datePicker_harvest.getMonth(), datePicker_harvest.getDayOfMonth());
 
-                    task.harvest_date = calendar_harvestDate.getTime();
+                    if (task.isHarvested()) {
+                        // กรณีเปลี่ยนวันที่กรีด ต้องคำนวณรอบการใส่ปุ๋ยหลังกรีดใหม่
+                        Calendar calendar_oldHarvest = DateHelper.toCalendar(task.harvest_date);
+                        String oldHarvestStr = DateHelper.formatDateToDateString(calendar_oldHarvest);
 
-//                    List<Formula> formulaList = dbHelper.selectAllFormula();
-//                    //List<Fertilizing_Round> fertilizingRoundList = FertilizingRoundHelper.generateFertilizingRoundList(newTask, formulaList);
-//
-//                    for (Fertilizing_Round fRound : fertilizingRoundList){
-//                        dbHelper.createFertilizing_Round(fRound);
+                        task.harvest_date = calendar_harvestDate.getTime();
+                        String newHarvestStr = DateHelper.formatDateToDateString(calendar_harvestDate);
+
+                        if(!oldHarvestStr.equals(newHarvestStr)){
+                            List<Fertilizing_Round> fertilizingRoundList = FertilizingRoundHelper.generateFertilizingRoundListAfterHarvest(task);
+
+                            for (Fertilizing_Round fRound : fertilizingRoundList) {
+                                dbHelper.createFertilizing_Round(fRound);
+                            }
+                        }
+
+                    } else {
+                        // กรณีเพิ่งติ๊กกรีด
+                        task.harvest_date = calendar_harvestDate.getTime();
+
+                        List<Fertilizing_Round> fertilizingRoundList = FertilizingRoundHelper.generateFertilizingRoundListAfterHarvest(task);
+
+                        for (Fertilizing_Round fRound : fertilizingRoundList) {
+                            dbHelper.createFertilizing_Round(fRound);
+                        }
+                    }
                 }
+
+
+                // ถ้ามีการ update วันที่เริ่มปลูกต้อง cal อายุต้นและรอบการให้ปุ๋ยใหม่
+                if (!oldStartDateStr.equals(newStartDateStr)) {
+                    task.start_date = calendar_newStart.getTime();
+                    task.tree_age = DateHelper.GetCurrentTreeAge(task.start_date);
+
+                    // DELETE รอบการให้ปุ๋ยเก่า
+                    dbHelper.deleteFertilizing_RoundByTaskId(task.id);
+
+                    // cal และ add รอบการให้ปุ๋ยใหม่
+                    List<Formula> formulaList = dbHelper.selectAllFormula();
+                    List<Fertilizing_Round> fertilizingRoundList = FertilizingRoundHelper.generateFertilizingRoundList(task, formulaList);
+
+                    for (Fertilizing_Round fRound : fertilizingRoundList) {
+                        dbHelper.createFertilizing_Round(fRound);
+                    }
+
+                    if(task.isHarvested()){
+                        List<Fertilizing_Round> fertilizingRoundListAfter = FertilizingRoundHelper.generateFertilizingRoundListAfterHarvest(task);
+
+                        for (Fertilizing_Round fRound : fertilizingRoundListAfter) {
+                            dbHelper.createFertilizing_Round(fRound);
+                        }
+                    }
+                }
+
+                dbHelper.updateTask(task);
+
+                Dialog dialog = MyDialogBuilder.CreateDialog(this, "Edit Successful", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                    }
+                });
+                dialog.show();
             }
-
-            Calendar calendar_newStart = Calendar.getInstance();
-            calendar_newStart.set(datePicker_start.getYear(), datePicker_start.getMonth(), datePicker_start.getDayOfMonth());
-
-            Calendar calendar_oldStart = DateHelper.toCalendar(task.start_date);
-
-            // ถ้ามีการ update วันที่เริ่มปลูกต้อง cal อายุต้นและรอบการให้ปุ๋ยใหม่
-            if (!calendar_oldStart.equals(calendar_newStart)) {
-                task.start_date = calendar_newStart.getTime();
-                task.tree_age = DateHelper.GetCurrentTreeAge(task.start_date);
-
-                // DELETE รอบการให้ปุ๋ยเก่า
-                dbHelper.deleteFertilizing_RoundByTaskId(task.id);
-
-                // cal และ add รอบการให้ปุ๋ยใหม่
-                List<Formula> formulaList = dbHelper.selectAllFormula();
-                List<Fertilizing_Round> fertilizingRoundList = FertilizingRoundHelper.generateFertilizingRoundList(task, formulaList);
-
-                for (Fertilizing_Round fRound : fertilizingRoundList) {
-                    dbHelper.createFertilizing_Round(fRound);
-                }
-            }
-
-            dbHelper.updateTask(task);
-
-            Dialog dialog = MyDialogBuilder.CreateDialog(this, "Edit Successful", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    finish();
-                }
-            });
-            dialog.show();
-
         }
 
 

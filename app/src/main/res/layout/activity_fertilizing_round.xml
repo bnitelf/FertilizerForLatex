@@ -6,6 +6,7 @@
     tools:context="com.example.puicbr.fertilizerforlatex.FertilizingRoundActivity">
 
     <TextView
+        android:id="@+id/txt_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -67,68 +68,68 @@
         android:focusable="false"
         android:gravity="center" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="รอบการให้ปุ๋ยหลังกรีดยาง"
-        android:layout_marginTop="20dp"
-        android:background="#ffedb7"
-        android:paddingTop="16dp"
-        android:paddingLeft="16dp" />
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
+        <!--android:text="รอบการให้ปุ๋ยหลังกรีดยาง"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:background="#ffedb7"-->
+        <!--android:paddingTop="16dp"-->
+        <!--android:paddingLeft="16dp" />-->
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#ffedb7"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp">
+    <!--<LinearLayout-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="#ffedb7"-->
+        <!--android:paddingLeft="16dp"-->
+        <!--android:paddingRight="16dp">-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:text="รอบที่"
-            android:textStyle="bold" />
+        <!--<TextView-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="2"-->
+            <!--android:text="รอบที่"-->
+            <!--android:textStyle="bold" />-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:text="อายุต้น"
-            android:textStyle="bold" />
+        <!--<TextView-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="2"-->
+            <!--android:text="อายุต้น"-->
+            <!--android:textStyle="bold" />-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="5"
-            android:text="เดือน"
-            android:textStyle="bold" />
+        <!--<TextView-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="5"-->
+            <!--android:text="เดือน"-->
+            <!--android:textStyle="bold" />-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="สถานะ"
-            android:textStyle="bold" />
+        <!--<TextView-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:text="สถานะ"-->
+            <!--android:textStyle="bold" />-->
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/lvAfter"
-        android:visibility="gone" />
+    <!--<ListView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/lvAfter"-->
+        <!--android:visibility="gone" />-->
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:text="--- ไม่พบข้อมูล ---"
-        android:id="@+id/txtNoDataAfter"
-        android:layout_gravity="center"
-        android:autoText="false"
-        android:focusable="false"
-        android:gravity="center" />
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="48dp"-->
+        <!--android:text="-&#45;&#45; ไม่พบข้อมูล -&#45;&#45;"-->
+        <!--android:id="@+id/txtNoDataAfter"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:autoText="false"-->
+        <!--android:focusable="false"-->
+        <!--android:gravity="center" />-->
 
 </LinearLayout>

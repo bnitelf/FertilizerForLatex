@@ -13,13 +13,9 @@ import com.example.puicbr.fertilizerforlatex.R;
 import com.example.puicbr.fertilizerforlatex.helper.DateHelper;
 import com.example.puicbr.fertilizerforlatex.helper.DbHelper;
 import com.example.puicbr.fertilizerforlatex.model.Constants.FertilizingRoundState;
-import com.example.puicbr.fertilizerforlatex.model.Constants.TaskState;
 import com.example.puicbr.fertilizerforlatex.model.Fertilizing_Round;
-import com.example.puicbr.fertilizerforlatex.model.Formula;
 
-import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Folder on 01-May-17.
@@ -76,7 +72,7 @@ public class FertilizingRoundAdapter extends BaseAdapter {
         // Setting all values in listview
         tvRound.setText(String.valueOf(fRound.round));
         tvTreeAge.setText(String.valueOf(fRound.tree_age) + " เดือน");
-        tvDate.setText(DateHelper.formatDateToDateStringFertilizingRound(fRound.date));
+        tvDate.setText(DateHelper.formatDateToDateStringForDisplay(fRound.date));
         tvStatus.setText(fRound.finish_state.getFieldDescription());
         chkFinish.setTag(position);
 

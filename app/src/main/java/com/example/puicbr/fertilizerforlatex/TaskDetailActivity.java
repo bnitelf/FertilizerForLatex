@@ -26,8 +26,11 @@ public class TaskDetailActivity extends AppCompatActivity {
     private Button btnEdit =null;
     private Button btnViewFreRound =null;
     private TextView txtName =null;
+    private TextView txtHarvestStatus = null;
+
     private DbHelper dbHelper = null;
 
+    private int task_id = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,20 +46,24 @@ public class TaskDetailActivity extends AppCompatActivity {
         txtFomula = (TextView) findViewById(R.id.txt_formula);
         txtRai = (TextView) findViewById(R.id.txt_rai);
         txtName = (TextView) findViewById(R.id.txt_name);
+        txtHarvestStatus = (TextView) findViewById(R.id.txt_harvest_status);
         radAfter = (RadioButton) findViewById(R.id.rad_after);
         radBefore = (RadioButton) findViewById(R.id.rad_before);
         btnEdit = (Button) findViewById(R.id.btn_edit);
         btnViewFreRound = (Button) findViewById(R.id.btn_view_fertilizing_round);
+
+
         dbHelper = new DbHelper(this);
 
         Intent mIntent = getIntent();
-        final int task_id = mIntent.getIntExtra("task_id",0);
+        task_id = mIntent.getIntExtra("task_id",0);
+        final int task_id_final = task_id;
 
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent myIntent = new Intent(TaskDetailActivity.this, TaskEditActivity.class);
-                myIntent.putExtra("task_id", task_id);
+                myIntent.putExtra("task_id", task_id_final);
                 startActivity(myIntent);
             }
         });
@@ -64,31 +71,35 @@ public class TaskDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent myIntent = new Intent(TaskDetailActivity.this, FertilizingRoundActivity.class);
-                myIntent.putExtra("task_id", task_id);
+                myIntent.putExtra("task_id", task_id_final);
+                myIntent.putExtra("before", radBefore.isChecked());
                 startActivity(myIntent);
             }
 
         });
 
+        loadData();
+    }
 
+    private void loadData(){
         Task task = dbHelper.selectTaskById(task_id);
 
         txtName.setText(task.name);
         txtArea02.setText(task.location);
         txtTon.setText(task.tree_amt + " ต้น");
         txtRai.setText(task.rai + " ไร่");
-        txtDate.setText(DateHelper.formatDateToDateString(task.start_date));
+        txtDate.setText(DateHelper.formatDateToDateStringForDisplay(task.start_date));
         txtAgeTreeMonth.setText(DateHelper.GetCurrentTreeAge(task.start_date) + " เดือน");
 
         if(task.harvest_date == null){
             // ยังไม่ได้กรีด
-            txtFomula.setText("สูตรการให้ปุ๋ยก่อนกรีดยาง");
+            txtFomula.setText("สูตร 20-10-12");
+            txtHarvestStatus.setText("ยังไม่ได้กรีด");
         } else {
             // กรีดแล้ว
-            txtFomula.setText("สูตรการให้ปุ๋ยหลังกรีดยาง");
+            txtFomula.setText("สูตร 30-5-18 หรือ สูตร 29-5-18");
+            txtHarvestStatus.setText("กรีดแล้ว เมื่อวันที่ " + DateHelper.formatDateToDateStringForDisplay(task.harvest_date));
         }
-
-
     }
 
     @Override
@@ -104,5 +115,11 @@ public class TaskDetailActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadData();
     }
 }

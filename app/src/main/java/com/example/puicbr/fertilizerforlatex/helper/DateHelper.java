@@ -50,11 +50,20 @@ public class DateHelper {
     }
 
     /**
+     * Format date ให้เป็น string ในรูป yyyy-mm-dd
+     * @param c
+     * @return
+     */
+    public static String formatDateToDateString(Calendar c){
+        return formatDateToDateString(c.getTime());
+    }
+
+    /**
      * Format date ให้เป็น string ในรูป dd-MMM-yyyy เช่น 31-May-2017
      * @param d
      * @return
      */
-    public static String formatDateToDateStringFertilizingRound(Date d){
+    public static String formatDateToDateStringForDisplay(Date d){
         SimpleDateFormat dateFormat = new SimpleDateFormat ("dd-MMM-yyyy");
         String dateStr = dateFormat.format(d);
         return dateStr;

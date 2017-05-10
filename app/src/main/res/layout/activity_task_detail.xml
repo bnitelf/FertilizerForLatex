@@ -18,9 +18,9 @@
 
         <TextView
             android:text="ชื่อ"
-            android:layout_width="110dp"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            />
+            android:textStyle="bold"/>
 
         <TextView
             android:text="...งาน"
@@ -37,9 +37,9 @@
 
         <TextView
             android:text="ที่อยู่"
-            android:layout_width="110dp"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            />
+            android:textStyle="bold"/>
         <TextView
             android:text="..."
             android:layout_width="wrap_content"
@@ -55,9 +55,10 @@
 
             <TextView
                 android:text="พื้นที่"
-                android:layout_width="110dp"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView3" />
+                android:id="@+id/textView3"
+                android:textStyle="bold"/>
 
             <TextView
                 android:text="... ไร่"
@@ -74,9 +75,10 @@
 
             <TextView
                 android:text="จำนวน"
-                android:layout_width="110dp"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView4" />
+                android:id="@+id/textView4"
+                android:textStyle="bold"/>
 
             <TextView
                 android:text="... ต้น"
@@ -93,9 +95,10 @@
 
             <TextView
                 android:text="อายุต้น"
-                android:layout_width="110dp"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView5"/>
+                android:id="@+id/textView5"
+                android:textStyle="bold"/>
 
             <TextView
                 android:text="... เดือน"
@@ -111,8 +114,9 @@
 
         <TextView
             android:text="วันที่เริ่มปลูก"
-            android:layout_width="110dp"
-            android:layout_height="wrap_content"/>
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"/>
 
         <TextView
             android:text="xx/xx/xx"
@@ -129,8 +133,9 @@
 
         <TextView
             android:text="สถานะการกรีดยาง"
-            android:layout_width="110dp"
-            android:layout_height="wrap_content" />
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"/>
 
         <TextView
             android:text="ยังไม่ได้กรีด"
@@ -147,9 +152,10 @@
 
             <TextView
                 android:text="สูตรการให้ปุ๋ย"
-                android:layout_width="110dp"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView7" />
+                android:id="@+id/textView7"
+                android:textStyle="bold"/>
 
             <TextView
                 android:text="... "
@@ -169,7 +175,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/rad_before"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:checked="true" />
 
             <RadioButton
                 android:text="After"
