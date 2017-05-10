@@ -29,12 +29,17 @@ public class FertilizingRoundActivity extends AppCompatActivity {
     private int task_id = -1;
     private Task task = null;
 
+    private FertilizingRoundAdapter adapter = null;
     private DbHelper dbHelper = null;
+
+    private boolean editMode = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fertilizing_round);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         lvBefore = (ListView) findViewById(R.id.lvBefore);
         lvAfter = (ListView) findViewById(R.id.lvAfter);
@@ -79,17 +84,29 @@ public class FertilizingRoundActivity extends AppCompatActivity {
             txtNoDataBefore.setVisibility(View.GONE);
             lvBefore.setVisibility(View.VISIBLE);
 
-            FertilizingRoundAdapter adapter = new FertilizingRoundAdapter(this, fRoundBeforeList);
+            adapter = new FertilizingRoundAdapter(this, fRoundBeforeList);
             lvBefore.setAdapter(adapter);
         }
     }
 
-    /*@Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_fertilizing_round, menu);
+        MenuItem itemEdit = menu.findItem(R.id.action_edit);
+        MenuItem itemDone = menu.findItem(R.id.action_done);
+
+        if(editMode){
+            itemEdit.setVisible(false);
+            itemDone.setVisible(true);
+        } else {
+            itemEdit.setVisible(true);
+            itemDone.setVisible(false);
+        }
+
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -98,11 +115,27 @@ public class FertilizingRoundActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == android.R.id.home) {
+            onBackPressed();
             return true;
+
+        } else if (id == R.id.action_edit) {
+            editMode = true;
+            // re-create option menu
+            supportInvalidateOptionsMenu();
+
+            adapter.enableEditMode(true);
+
+        } else if (id == R.id.action_done) {
+            editMode = false;
+            // re-create option menu
+            supportInvalidateOptionsMenu();
+
+            adapter.enableEditMode(false);
         }
 
+
+
         return super.onOptionsItemSelected(item);
-    }*/
+    }
 }

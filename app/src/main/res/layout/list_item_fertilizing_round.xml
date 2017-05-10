@@ -45,4 +45,13 @@
         android:layout_weight="1"
         android:background="#ff9895"
         android:gravity="center_vertical" />
+
+    <CheckBox
+        android:id="@+id/chk_finish"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="#ff9895"
+        android:gravity="center_vertical"
+        android:visibility="gone"/>
 </LinearLayout>

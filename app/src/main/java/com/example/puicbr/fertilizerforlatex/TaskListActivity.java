@@ -22,13 +22,13 @@ public class TaskListActivity extends AppCompatActivity implements AdapterView.O
     private ListView lvTaskList = null;
     private List<Task> taskList = null;
 
-    //    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//    }
+
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         setContentView(R.layout.activity_tasklist);
+
+        getSupportActionBar().setTitle("Task List");
+
         lvTaskList = (ListView) findViewById(R.id.task_list);
         dbHelper = new DbHelper(this);
         taskList = dbHelper.selectAllTasks();
@@ -50,7 +50,7 @@ public class TaskListActivity extends AppCompatActivity implements AdapterView.O
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
         Task selectedTask = taskList.get(position);
-        Toast.makeText(this, selectedTask.name + " selected", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, selectedTask.name + " selected", Toast.LENGTH_LONG).show();
 
         Intent myIntent = new Intent(TaskListActivity.this, TaskDetailActivity.class);
         myIntent.putExtra("task_id",selectedTask.id );

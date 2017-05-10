@@ -41,11 +41,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".FertilizingRoundActivity"
-            android:label="@string/title_activity_fertilizing_round"
-            android:parentActivityName=".TaskDetailActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.puicbr.fertilizerforlatex.TaskDetailActivity" />
+            android:label="@string/title_activity_fertilizing_round">
         </activity>
     </application>
 

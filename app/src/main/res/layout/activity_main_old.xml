@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#BCEE68"
+    android:background="@color/background"
     android:padding="30dp"
     android:gravity="center"
     tools:context="com.example.puicbr.fertilizerforlatex.MainActivityOld">

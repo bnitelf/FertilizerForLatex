@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#30cf14</color>
+    <color name="colorPrimary">#239c0e</color>
     <color name="colorPrimaryDark">#239c0e</color>
     <color name="colorAccent">#E87303</color>
     <color name="navDrawerbackground">@color/colorPrimaryDark</color>

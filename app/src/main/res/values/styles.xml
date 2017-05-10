@@ -5,6 +5,10 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <!--<item name="actionBarStyle">@style/MyActionBar</item>-->
+        <!--<item name="background">@color/background</item>-->
+
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -23,4 +27,10 @@
         <!--<item name="actionOverflowButtonStyle">@style/ActionButtonOverflowStyle</item>-->
         <!--<item name="drawerArrowStyle">@style/DrawerArrowStyle</item>-->
     </style>
+
+    <!--<style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">-->
+    <style name="MyActionBar">
+        <item name="background">@color/colorPrimaryDark</item>
+    </style>
+
 </resources>
