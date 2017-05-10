@@ -6,6 +6,7 @@ import com.example.puicbr.fertilizerforlatex.model.Task;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -93,8 +94,7 @@ public class DateHelper {
     public static Date GetNextFertilizingDate(Task task, List<Formula> formulaList){
         Date next = null;
 
-//        Calendar calendar = Calendar.getInstance();
-        Calendar calendarNext = Calendar.getInstance();
+        Calendar calendarNext = new GregorianCalendar();
 
         int currentTreeAge = GetCurrentTreeAge(task);
 
@@ -120,7 +120,7 @@ public class DateHelper {
     public static Date GetNextFertilizingDate(Task task, List<Formula> formulaList, int currentTreeAge){
         Date next = null;
 
-        Calendar calendarNext = Calendar.getInstance();
+        Calendar calendarNext = new GregorianCalendar();
 
         int nextFertilizingTreeAge = -1;
 
@@ -143,7 +143,7 @@ public class DateHelper {
 
 
     public static Calendar toCalendar(Date date){
-        Calendar cal = Calendar.getInstance();
+        Calendar cal = new GregorianCalendar();
         cal.setTime(date);
         return cal;
     }
@@ -168,12 +168,12 @@ public class DateHelper {
         return null;
     }
 
-    public static Calendar AddDay(Calendar calendar, int addNumDay){
+    public static Calendar addDay(Calendar calendar, int addNumDay){
         calendar.add(Calendar.DAY_OF_MONTH, addNumDay);
         return calendar;
     }
 
-    public static Calendar AddMonth(Calendar calendar, int addNumMonth){
+    public static Calendar addMonth(Calendar calendar, int addNumMonth){
         calendar.add(Calendar.MONTH, addNumMonth);
         return calendar;
     }

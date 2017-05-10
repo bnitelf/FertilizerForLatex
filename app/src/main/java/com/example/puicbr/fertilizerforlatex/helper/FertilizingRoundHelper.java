@@ -24,8 +24,7 @@ public class FertilizingRoundHelper {
         for (Formula f : formulaList){
 
             calendar = DateHelper.toCalendar(task.start_date);
-            calendar = DateHelper.AddMonth(calendar, f.tree_age);
-//            calendar.add(Calendar.MONTH, f.tree_age);
+            calendar = DateHelper.addDay(calendar, f.tree_age * 30);
 
             round += 1;
 
@@ -48,6 +47,9 @@ public class FertilizingRoundHelper {
         // 20 year * 12 = 240 month
         int maxTreeAge = 240;
 
+        // รอบการใส่ปุ๋ย = ทุก 6 เดือน
+        int monthInterval = 6;
+
         if(task.isHarvested()) {
 
             Calendar calendar = null;
@@ -61,10 +63,10 @@ public class FertilizingRoundHelper {
                 } else {
                     calendar = DateHelper.toCalendar(roundList.get(roundList.size() - 1).date);
                 }
-                calendar = DateHelper.AddMonth(calendar, 6);
+                calendar = DateHelper.addDay(calendar, monthInterval * 30);
 
                 round += 1;
-                currentTreeAge += 6;
+                currentTreeAge += monthInterval;
 
                 fertilizingRound = new Fertilizing_Round();
                 fertilizingRound.task_id = task.id;
