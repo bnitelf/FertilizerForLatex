@@ -201,6 +201,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 task.rai = c.getInt(c.getColumnIndex(COL_RAI));
                 task.tree_age = c.getInt(c.getColumnIndex(COL_TREE_AGE));
                 task.tree_amt = c.getInt(c.getColumnIndex(COL_TREE_AMT));
+                task.location = c.getString(c.getColumnIndex(COL_LOCATION));
 
                 create_date = c.getString(c.getColumnIndex(COL_CREATE_DATE));
                 task.create_date = dateStringToDate(create_date);
