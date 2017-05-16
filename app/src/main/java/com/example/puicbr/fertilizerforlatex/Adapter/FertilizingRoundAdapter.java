@@ -61,6 +61,7 @@ public class FertilizingRoundAdapter extends BaseAdapter {
         if (convertView == null)
             vi = inflater.inflate(R.layout.list_item_fertilizing_round, null);
 
+        View list_item_root = vi.findViewById(R.id.ll_list_item);
         TextView tvRound = (TextView) vi.findViewById(R.id.txt_round);
         TextView tvTreeAge = (TextView) vi.findViewById(R.id.txt_tree_age);
         TextView tvDate = (TextView) vi.findViewById(R.id.txt_date);
@@ -78,8 +79,10 @@ public class FertilizingRoundAdapter extends BaseAdapter {
 
         if(fRound.finish_state == FertilizingRoundState.NOT_DONE){
             chkFinish.setChecked(false);
+            list_item_root.setBackgroundResource(android.R.color.white);
         } else {
             chkFinish.setChecked(true);
+            list_item_root.setBackgroundResource(R.color.list_bg_green);
         }
 
         chkFinish.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

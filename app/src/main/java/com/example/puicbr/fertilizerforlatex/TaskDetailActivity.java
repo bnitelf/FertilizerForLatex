@@ -25,6 +25,7 @@ public class TaskDetailActivity extends AppCompatActivity {
     private RadioButton radAfter = null ;
     private Button btnEdit =null;
     private Button btnViewFreRound =null;
+    private Button btnViewFerGuide =null;
     private TextView txtName =null;
     private TextView txtHarvestStatus = null;
 
@@ -51,7 +52,7 @@ public class TaskDetailActivity extends AppCompatActivity {
         radBefore = (RadioButton) findViewById(R.id.rad_before);
         btnEdit = (Button) findViewById(R.id.btn_edit);
         btnViewFreRound = (Button) findViewById(R.id.btn_view_fertilizing_round);
-
+        btnViewFerGuide = (Button) findViewById(R.id.btn_view_fertilizing_guide);
 
         dbHelper = new DbHelper(this);
 
@@ -71,6 +72,16 @@ public class TaskDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent myIntent = new Intent(TaskDetailActivity.this, FertilizingRoundActivity.class);
+                myIntent.putExtra("task_id", task_id_final);
+                myIntent.putExtra("before", radBefore.isChecked());
+                startActivity(myIntent);
+            }
+
+        });
+        btnViewFerGuide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(TaskDetailActivity.this, FertilizingGuideActivity.class);
                 myIntent.putExtra("task_id", task_id_final);
                 myIntent.putExtra("before", radBefore.isChecked());
                 startActivity(myIntent);

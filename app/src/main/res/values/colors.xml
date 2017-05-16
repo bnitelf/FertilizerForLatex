@@ -11,7 +11,8 @@
     <color name="taskStatusAchieve">#0db10a</color>
     <color name="taskStatusCancel">#ec2626</color>
     <color name="taskStatusDelete">#868686</color>
-        <color name="background">#CCFF99</color>
+    <color name="background">#CCFF99</color>
+    <color name="list_bg_green">#d8e4bc</color>
 
 
 </resources>

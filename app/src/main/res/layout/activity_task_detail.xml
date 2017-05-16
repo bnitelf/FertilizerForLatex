@@ -204,6 +204,12 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_view_fertilizing_round" />
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ดูสูตรการให้ปุ๋ย"
+                android:id="@+id/btn_view_fertilizing_guide" />
+
         </LinearLayout>
 
     </LinearLayout>

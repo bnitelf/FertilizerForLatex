@@ -33,6 +33,7 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_fertilizing_round">FertilizingRoundActivity</string>
+    <string name="title_activity_fertilizing_guide">FertilizingGuideActivity</string>
 
 
 </resources>

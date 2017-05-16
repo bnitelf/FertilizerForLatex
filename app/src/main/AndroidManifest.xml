@@ -41,7 +41,11 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".FertilizingRoundActivity"
-            android:label="@string/title_activity_fertilizing_round">
+            android:label="@string/title_activity_fertilizing_round" >
+        </activity>
+        <activity
+            android:name=".FertilizingGuideActivity"
+            android:label="@string/title_activity_fertilizing_guide" >
         </activity>
     </application>
 
