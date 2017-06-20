@@ -389,4 +389,50 @@ public class DbHelper extends SQLiteOpenHelper {
 
         return fertilizingRoundList;
     }
+
+    public List<Task> selectTask_ByFertilizingDate(Date date){
+        List<Task> taskList = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sql = String.format("select * from %s where %s in (select %s from %s where %s = '%s')",
+                TABLE_NAME_TASK,
+                COL_ID,
+                COL_TASK_ID,
+                TABLE_NAME_FERTILIZING_ROUND,
+                COL_DATE, DateHelper.formatDateToDateString(date));
+
+        String create_date;
+        String start_date;
+        String harvest_date;
+        String taskState;
+
+        Cursor c =  db.rawQuery(sql, null );
+        if(c.moveToFirst()){
+            do{
+                Task task = new Task();
+                task.id = c.getInt(c.getColumnIndex(COL_ID));
+                task.name = c.getString(c.getColumnIndex(COL_NAME));
+                task.rai = c.getInt(c.getColumnIndex(COL_RAI));
+                task.tree_age = c.getInt(c.getColumnIndex(COL_TREE_AGE));
+                task.tree_amt = c.getInt(c.getColumnIndex(COL_TREE_AMT));
+                task.location = c.getString(c.getColumnIndex(COL_LOCATION));
+
+                create_date = c.getString(c.getColumnIndex(COL_CREATE_DATE));
+                task.create_date = dateStringToDate(create_date);
+
+                start_date = c.getString(c.getColumnIndex(COL_START_DATE));
+                task.start_date = dateStringToDate(start_date);
+
+                harvest_date = c.getString(c.getColumnIndex(COL_HARVEST_DATE));
+                task.harvest_date = dateStringToDate(harvest_date);
+
+                taskState = c.getString(c.getColumnIndex(COL_STATE));
+                task.taskState = TaskState.valueOf(taskState.toUpperCase());
+
+                taskList.add(task);
+            }while(c.moveToNext());
+        }
+
+        return taskList;
+    }
 }

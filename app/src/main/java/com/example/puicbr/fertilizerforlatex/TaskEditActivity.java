@@ -15,6 +15,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 
+import com.example.puicbr.fertilizerforlatex.helper.AlarmUtil;
 import com.example.puicbr.fertilizerforlatex.helper.DateHelper;
 import com.example.puicbr.fertilizerforlatex.helper.DbHelper;
 import com.example.puicbr.fertilizerforlatex.helper.FertilizingHelper;
@@ -165,6 +166,7 @@ public class TaskEditActivity extends AppCompatActivity {
                             List<Fertilizing_Round> fertilizingRoundList = FertilizingRoundHelper.generateFertilizingRoundListAfterHarvest(task);
 
                             for (Fertilizing_Round fRound : fertilizingRoundList) {
+                                AlarmUtil.setReminder(this, DateHelper.toCalendar(fRound.date));
                                 dbHelper.createFertilizing_Round(fRound);
                             }
                         }
@@ -176,6 +178,7 @@ public class TaskEditActivity extends AppCompatActivity {
                         List<Fertilizing_Round> fertilizingRoundList = FertilizingRoundHelper.generateFertilizingRoundListAfterHarvest(task);
 
                         for (Fertilizing_Round fRound : fertilizingRoundList) {
+                            AlarmUtil.setReminder(this, DateHelper.toCalendar(fRound.date));
                             dbHelper.createFertilizing_Round(fRound);
                         }
                     }
@@ -195,6 +198,7 @@ public class TaskEditActivity extends AppCompatActivity {
                     List<Fertilizing_Round> fertilizingRoundList = FertilizingRoundHelper.generateFertilizingRoundList(task, formulaList);
 
                     for (Fertilizing_Round fRound : fertilizingRoundList) {
+                        AlarmUtil.setReminder(this, DateHelper.toCalendar(fRound.date));
                         dbHelper.createFertilizing_Round(fRound);
                     }
 
@@ -202,6 +206,7 @@ public class TaskEditActivity extends AppCompatActivity {
                         List<Fertilizing_Round> fertilizingRoundListAfter = FertilizingRoundHelper.generateFertilizingRoundListAfterHarvest(task);
 
                         for (Fertilizing_Round fRound : fertilizingRoundListAfter) {
+                            AlarmUtil.setReminder(this, DateHelper.toCalendar(fRound.date));
                             dbHelper.createFertilizing_Round(fRound);
                         }
                     }

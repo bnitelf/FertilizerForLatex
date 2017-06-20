@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.puicbr.fertilizerforlatex" >
 
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -24,7 +26,7 @@
             android:name=".StartActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".SelectDateActivity" />
-        <activity
+        <!--<activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
@@ -32,7 +34,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity>-->
         <activity android:name=".Sub_main" />
         <activity android:name=".TaskListActivity" />
         <activity android:name=".TaskDetailActivity" />
@@ -47,6 +49,8 @@
             android:name=".FertilizingGuideActivity"
             android:label="@string/title_activity_fertilizing_guide" >
         </activity>
+
+        <receiver android:name=".BroadcastReceiver.AlarmReceiver"></receiver>
     </application>
 
 </manifest>

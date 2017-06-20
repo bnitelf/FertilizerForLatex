@@ -5,12 +5,14 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 
+import com.example.puicbr.fertilizerforlatex.helper.AlarmUtil;
 import com.example.puicbr.fertilizerforlatex.helper.DateHelper;
 import com.example.puicbr.fertilizerforlatex.helper.DbHelper;
 import com.example.puicbr.fertilizerforlatex.helper.FertilizingHelper;
@@ -129,6 +131,9 @@ public class StartActivity extends AppCompatActivity {
                 List<Fertilizing_Round> fertilizingRoundList = FertilizingRoundHelper.generateFertilizingRoundList(newTask, formulaList);
 
                 for (Fertilizing_Round fRound : fertilizingRoundList){
+                    Log.d("AlarmReceiver", DateHelper.formatDateToDateString(fRound.date));
+//                    Log.d("AlarmReceiver", DateHelper.formatDateToDateString(DateHelper.toCalendar(fRound.date)));
+                    AlarmUtil.setReminder(this, DateHelper.toCalendar(fRound.date));
                     dbHelper.createFertilizing_Round(fRound);
                 }
 
